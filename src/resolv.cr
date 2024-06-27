@@ -24,6 +24,8 @@ module Resolv
       end
 
       class SOA < Resource
+        getter mname, rname, serial, refresh, retry, expire, minimum
+
         def initialize(
           @mname : String,
           @rname : String,
@@ -45,26 +47,36 @@ module Resolv
       end
 
       class A < Resource
+        getter address
+
         def initialize(@address : String)
         end
       end
 
       class NS < Resource
+        getter nsdname
+
         def initialize(@nsdname : String)
         end
       end
 
       class CNAME < Resource
+        getter cname
+
         def initialize(@cname : String)
         end
       end
 
       class PTR < Resource
+        getter ptrdname
+
         def initialize(@ptrdname : String)
         end
       end
 
       class TXT < Resource
+        getter txt_data
+
         def initialize(@txt_data : Array(String))
         end
       end
