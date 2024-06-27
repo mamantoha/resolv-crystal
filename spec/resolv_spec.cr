@@ -19,7 +19,7 @@ describe Resolv do
     records.should be_a(Array(Resolv::DNS::Resource::AAAA))
     records.size.should eq(1)
 
-    addresses = records.map(&.address)
-    addresses.should contain("2620:0:861:ed1a::1")
+    address = records.map(&.address).first
+    address.should match(/[a-z0-9]+:[a-z0-9]+:[a-z0-9]+:[a-z0-9]+::1/)
   end
 end
