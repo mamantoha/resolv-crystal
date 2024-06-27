@@ -184,6 +184,8 @@ module Resolv
       end
     end
 
+    # Extracts a domain name from the DNS response message starting at the specified offset.
+    # Returns a Tuple containing the extracted domain name and the new offset position after the name.
     private def extract_name(response : Bytes, offset : Int32) : Tuple(String, Int32)
       name = ""
 
@@ -244,7 +246,7 @@ module Resolv
     private def extract_a_records(response : Bytes) : Array(String)
       records = extract_records(response, :a)
 
-      records.map do |_record_data, offset|
+      records.map do |_, offset|
         [response[offset], response[offset + 1], response[offset + 2], response[offset + 3]].join('.')
       end
     end
