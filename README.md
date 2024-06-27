@@ -52,6 +52,10 @@ dns.mx_resources("gmail.com")
 
 dns.soa_resources("gmail.com")
 # => #<Resolv::DNS::Resource::SOA:0x10245c100 @mname="ns1.google.com", @rname="dns-admin.google.com", @serial=646797294, @refresh=900, @retry=900, @expire=1800, @minimum=60>
+
+dns = Resolv::DNS.new("dns.toys")
+dns.txt_resources("lviv.weather")
+# #<Resolv::DNS::Resource::TXT:0x104cf00a0 @txt_data=["Lviv (UA)", "28.00C (82.40F)", "43.90% hu.", "partlycloudy_day", "14:00, Thu"]>
 ```
 
 ## Contributing
