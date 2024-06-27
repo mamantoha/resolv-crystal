@@ -210,8 +210,13 @@ module Resolv
       {name[0..-2], offset} # Remove the trailing dot and return
     end
 
-    private def extract_records(response : Bytes, type : Resource::Type) : Array(Tuple(String, Int32))
-      records = [] of Tuple(String, Int32)
+    # Extracts the offsets of DNS resource records of a specified type from the DNS response message.
+    #
+    # This method processes the DNS response to extract the offsets of resource records (e.g., A, NS, MX, etc.).
+    # It skips the question section and parses the answer section to find records of the specified type.
+    # Each extracted record offset is returned.
+    private def extract_record_offsets(response : Bytes, type : Resource::Type) : Array(Int32)
+      offsets = [] of Int32
       offset = 12 # Start after the DNS header, which is always 12 bytes
 
       # Skip the question section
@@ -233,28 +238,28 @@ module Resolv
         offset += 2 # Skip RDLENGTH
 
         if type_value == type.value.to_u16
-          records << {response[offset, data_length].to_s, offset}
+          offsets << offset
         end
 
         offset += data_length # Move to the next record
         answer_count -= 1
       end
 
-      records
+      offsets
     end
 
     private def extract_a_records(response : Bytes) : Array(String)
-      records = extract_records(response, :a)
+      offsets = extract_record_offsets(response, :a)
 
-      records.map do |_, offset|
+      offsets.map do |offset|
         [response[offset], response[offset + 1], response[offset + 2], response[offset + 3]].join('.')
       end
     end
 
     private def extract_domain_name_records(response : Bytes, type : Resource::Type) : Array(String)
-      records = extract_records(response, type)
+      offsets = extract_record_offsets(response, type)
 
-      records.map do |_, offset|
+      offsets.map do |offset|
         record, _ = extract_name(response, offset)
 
         record
@@ -262,9 +267,9 @@ module Resolv
     end
 
     private def extract_mx_records(response : Bytes) : Array(Resource::MX)
-      records = extract_records(response, :mx)
+      offsets = extract_record_offsets(response, :mx)
 
-      records.map do |_, offset|
+      offsets.map do |offset|
         preference = (response[offset].to_u16 << 8) | response[offset + 1].to_u16
         exchange, _ = extract_name(response, offset + 2)
 
@@ -273,9 +278,9 @@ module Resolv
     end
 
     private def extract_soa_records(response : Bytes) : Array(Resource::SOA)
-      records = extract_records(response, :soa)
+      offsets = extract_record_offsets(response, :soa)
 
-      records.map do |_, offset|
+      offsets.map do |offset|
         mname, offset = extract_name(response, offset)
         rname, offset = extract_name(response, offset)
         serial = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
@@ -294,9 +299,9 @@ module Resolv
     end
 
     private def extract_txt_records(response : Bytes) : Array(Resource::TXT)
-      records = extract_records(response, :txt)
+      offsets = extract_record_offsets(response, :txt)
 
-      records.map do |_, offset|
+      offsets.map do |offset|
         txt_end = offset + (response[offset - 2] << 8) + response[offset - 1]
         record_texts = [] of String
 
