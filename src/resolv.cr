@@ -170,7 +170,8 @@ module Resolv
           socket.send(dns_query)
           response = Bytes.new(512)
           received_info = socket.receive(response)
-          bytes_received = received_info[0]   # Number of bytes received
+          bytes_received = received_info[0] # Number of bytes received
+
           return response[0...bytes_received] # Return the actual response
         rescue ex : IO::TimeoutError
           if retries_left > 0
@@ -283,14 +284,19 @@ module Resolv
       offsets.map do |offset|
         mname, offset = extract_name(response, offset)
         rname, offset = extract_name(response, offset)
+
         serial = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
         offset += 4
+
         refresh = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
         offset += 4
+
         retry = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
         offset += 4
+
         expire = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
         offset += 4
+
         minimum = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
         offset += 4
 
