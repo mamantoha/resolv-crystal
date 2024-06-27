@@ -1,5 +1,7 @@
 # Resolv
 
+[![Crystal CI](https://github.com/mamantoha/resolv-crystal/actions/workflows/crystal.yml/badge.svg)](https://github.com/mamantoha/resolv-crystal/actions/workflows/crystal.yml)
+
 Resolv is a DNS resolver library written in Crystal.
 
 ## Installation
