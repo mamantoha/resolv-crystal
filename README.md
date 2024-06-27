@@ -4,7 +4,7 @@
 
 Resolv is a DNS resolver library written in Crystal.
 
-Supported Resource Record (RR) TYPEs [[RFC1035](https://www.rfc-editor.org/rfc/rfc1035.html)]:
+Supported Resource Record (RR) TYPEs [[RFC 1035](https://www.rfc-editor.org/rfc/rfc1035.html)] and [[RFC 3596](https://datatracker.ietf.org/doc/html/rfc3596)]:
 
 |   | Type    | Value | Meaning                                  |
 | - | ------- | ----- | ---------------------------------------- |
@@ -24,6 +24,7 @@ Supported Resource Record (RR) TYPEs [[RFC1035](https://www.rfc-editor.org/rfc/r
 |   | `MINFO` | `14`  | mailbox or mail list information         |
 | ✓ | `MX`    | `15`  | mail exchange                            |
 | ✓ | `TXT`   | `16`  | text strings                             |
+| ✓ | `AAAA`  | `28`  | IPv6 host address                        |
 
 ## Installation
 

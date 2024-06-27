@@ -10,7 +10,8 @@ module Resolv
                       Array(Resource::NS) |
                       Array(Resource::SOA) |
                       Array(Resource::PTR) |
-                      Array(Resource::TXT)
+                      Array(Resource::TXT) |
+                      Array(Resource::AAAA)
 
     class Resource
       enum Type
@@ -21,6 +22,7 @@ module Resolv
         PTR   = 12 # a domain name pointer
         MX    = 15 # mail exchange
         TXT   = 16 # text strings
+        AAAA  = 28 # IPv6 host address
       end
 
       class SOA < Resource
@@ -51,6 +53,14 @@ module Resolv
       end
 
       class A < Resource
+        getter address
+
+        # :nodoc:
+        def initialize(@address : String)
+        end
+      end
+
+      class AAAA < Resource
         getter address
 
         # :nodoc:
@@ -94,7 +104,7 @@ module Resolv
     def initialize(@server : String, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
     end
 
-    {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt"] %}
+    {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa"] %}
       def {{type.id}}_resources(domain : String) : Array(Resource::{{type.id.upcase}})
         resources(domain, :{{type.id}}).as(Array(Resource::{{type.id.upcase}}))
       end
@@ -126,6 +136,10 @@ module Resolv
         extract_mx_records(response)
       in .txt?
         extract_txt_records(response)
+      in .aaaa?
+        extract_aaaa_records(response).map do |record|
+          Resource::AAAA.new(record)
+        end
       end
     end
 
@@ -253,7 +267,20 @@ module Resolv
       offsets = extract_record_offsets(response, :a)
 
       offsets.map do |offset|
-        [response[offset], response[offset + 1], response[offset + 2], response[offset + 3]].join('.')
+        ip_tuple = {response[offset], response[offset + 1], response[offset + 2], response[offset + 3]}
+
+        Socket::IPAddress.v4(*ip_tuple, port: 0).address
+      end
+    end
+
+    private def extract_aaaa_records(response : Bytes) : Array(String)
+      offsets = extract_record_offsets(response, :aaaa)
+
+      offsets.map do |offset|
+        segments = (0..7).map { |i| (response[offset + 2 * i].to_u16 << 8) | response[offset + 2 * i + 1].to_u16 }
+        ip_tuple = {segments[0], segments[1], segments[2], segments[3], segments[4], segments[5], segments[6], segments[7]}
+
+        Socket::IPAddress.v6(*ip_tuple, port: 0).address
       end
     end
 
