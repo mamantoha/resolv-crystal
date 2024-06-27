@@ -186,56 +186,55 @@ module Resolv
 
     private def extract_name(response : Bytes, offset : Int32) : Tuple(String, Int32)
       name = ""
-      i = offset
 
-      while i < response.size && response[i] != 0_u8
-        if (response[i] & 0xC0) == 0xC0
-          pointer = ((response[i] & 0x3F) << 8) | response[i + 1]
+      while offset < response.size && response[offset] != 0_u8
+        if (response[offset] & 0xC0) == 0xC0
+          pointer = ((response[offset] & 0x3F) << 8) | response[offset + 1]
           extracted_name, _ = extract_name(response, pointer)
           name += extracted_name + "."
-          i += 2
+          offset += 2
 
-          return {name[0..-2], i} # Return immediately since we are following a pointer
+          return {name[0..-2], offset} # Return immediately since we are following a pointer
         else
-          length = response[i]
-          i += 1
-          name += String.new(response[i, length]) + "."
-          i += length
+          length = response[offset]
+          offset += 1
+          name += String.new(response[offset, length]) + "."
+          offset += length
         end
       end
 
-      i += 1 if i < response.size && response[i] == 0_u8 # Skip the zero byte
+      offset += 1 if offset < response.size && response[offset] == 0_u8 # Skip the zero byte
 
-      {name[0..-2], i} # Remove the trailing dot and return
+      {name[0..-2], offset} # Remove the trailing dot and return
     end
 
     private def extract_records(response : Bytes, type : Resource::Type) : Array(Tuple(String, Int32))
       records = [] of Tuple(String, Int32)
-      i = 12 # Start after the DNS header, which is always 12 bytes
+      offset = 12 # Start after the DNS header, which is always 12 bytes
 
       # Skip the question section
-      _, i = extract_name(response, i)
-      i += 4 # Skip QTYPE (2 bytes) and QCLASS (2 bytes)
+      _, offset = extract_name(response, offset)
+      offset += 4 # Skip QTYPE (2 bytes) and QCLASS (2 bytes)
 
       # Number of answer records
       answer_count = (response[6] << 8) | response[7]
 
-      while answer_count > 0 && i < response.size
+      while answer_count > 0 && offset < response.size
         # Extract the name (skip it)
-        _, i = extract_name(response, i)
+        _, offset = extract_name(response, offset)
 
-        type_value = (response[i] << 8) | response[i + 1]
-        i += 2 # Skip TYPE
-        i += 2 # Skip CLASS
-        i += 4 # Skip TTL
-        data_length = (response[i] << 8) | response[i + 1]
-        i += 2 # Skip RDLENGTH
+        type_value = (response[offset] << 8) | response[offset + 1]
+        offset += 2 # Skip TYPE
+        offset += 2 # Skip CLASS
+        offset += 4 # Skip TTL
+        data_length = (response[offset] << 8) | response[offset + 1]
+        offset += 2 # Skip RDLENGTH
 
         if type_value == type.value.to_u16
-          records << {response[i, data_length].to_s, i}
+          records << {response[offset, data_length].to_s, offset}
         end
 
-        i += data_length # Move to the next record
+        offset += data_length # Move to the next record
         answer_count -= 1
       end
 
@@ -275,18 +274,18 @@ module Resolv
       records = extract_records(response, :soa)
 
       records.map do |_, offset|
-        mname, i = extract_name(response, offset)
-        rname, i = extract_name(response, i)
-        serial = (response[i].to_u32 << 24) | (response[i + 1].to_u32 << 16) | (response[i + 2].to_u32 << 8) | response[i + 3].to_u32
-        i += 4
-        refresh = (response[i].to_u32 << 24) | (response[i + 1].to_u32 << 16) | (response[i + 2].to_u32 << 8) | response[i + 3].to_u32
-        i += 4
-        retry = (response[i].to_u32 << 24) | (response[i + 1].to_u32 << 16) | (response[i + 2].to_u32 << 8) | response[i + 3].to_u32
-        i += 4
-        expire = (response[i].to_u32 << 24) | (response[i + 1].to_u32 << 16) | (response[i + 2].to_u32 << 8) | response[i + 3].to_u32
-        i += 4
-        minimum = (response[i].to_u32 << 24) | (response[i + 1].to_u32 << 16) | (response[i + 2].to_u32 << 8) | response[i + 3].to_u32
-        i += 4
+        mname, offset = extract_name(response, offset)
+        rname, offset = extract_name(response, offset)
+        serial = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
+        offset += 4
+        refresh = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
+        offset += 4
+        retry = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
+        offset += 4
+        expire = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
+        offset += 4
+        minimum = (response[offset].to_u32 << 24) | (response[offset + 1].to_u32 << 16) | (response[offset + 2].to_u32 << 8) | response[offset + 3].to_u32
+        offset += 4
 
         Resource::SOA.new(mname, rname, serial, refresh, retry, expire, minimum)
       end
@@ -298,12 +297,12 @@ module Resolv
       records.map do |_, offset|
         txt_end = offset + (response[offset - 2] << 8) + response[offset - 1]
         record_texts = [] of String
-        i = offset
-        while i < txt_end
-          text_length = response[i].to_u8
-          i += 1
-          record_texts << String.new(response[i, text_length])
-          i += text_length
+
+        while offset < txt_end
+          text_length = response[offset].to_u8
+          offset += 1
+          record_texts << String.new(response[offset, text_length])
+          offset += text_length
         end
 
         Resource::TXT.new(record_texts)
