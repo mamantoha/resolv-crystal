@@ -20,6 +20,6 @@ describe Resolv do
     records.size.should eq(1)
 
     addresses = records.map(&.address)
-    addresses.should contain("2a02:ec80:300:ed1a::1")
+    addresses.should contain("2620:0:861:ed1a::1")
   end
 end
