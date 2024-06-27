@@ -82,7 +82,7 @@ module Resolv
       end
     end
 
-    def initialize(@server : String, @read_timeout : Time::Span | Nil = nil)
+    def initialize(@server : String, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
     end
 
     {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt"] %}
@@ -150,18 +150,28 @@ module Resolv
 
     private def query_dns(domain : String, server : String, type : Resource::Type) : Bytes
       dns_query = build_dns_query(domain: domain, type: type)
-      socket = UDPSocket.new
-      socket.read_timeout = @read_timeout
+      retries_left = @retry || 0
 
-      begin
-        socket.connect(server, 53)
-        socket.send(dns_query)
-        response = Bytes.new(512)
-        received_info = socket.receive(response)
-        bytes_received = received_info[0] # Number of bytes received
-        response[0...bytes_received]      # Return the actual response
-      ensure
-        socket.close
+      loop do
+        socket = UDPSocket.new
+        socket.read_timeout = @read_timeout
+
+        begin
+          socket.connect(server, 53)
+          socket.send(dns_query)
+          response = Bytes.new(512)
+          received_info = socket.receive(response)
+          bytes_received = received_info[0]   # Number of bytes received
+          return response[0...bytes_received] # Return the actual response
+        rescue ex : IO::TimeoutError
+          if retries_left > 0
+            retries_left -= 1
+          else
+            raise ex
+          end
+        ensure
+          socket.close
+        end
       end
     end
 
