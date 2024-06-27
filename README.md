@@ -42,15 +42,16 @@ Supported Resource Record (RR) TYPEs [[RFC1035](https://www.rfc-editor.org/rfc/r
 ```crystal
 require "resolv"
 
-dns = Resolv::DNS.new("8.8.8.8")
-ress = dns.resources("www.ruby-lang.org", :a)
-# => Array(Resolv::DNS::Resources)
-# <Resolv::DNS::Resource::A:0x1010d0c40 @address="185.199.111.153">
-ress = dns.resources("gmail.com", :mx)
-# <Resolv::DNS::Resource::MX:0x1010d0560 @preference=40, @exchange="alt4.gmail-smtp-in.l.google.com">
+dns = Resolv::DNS.new("8.8.8.8", read_timeout: 10.seconds, retry: 3)
 
-ress = dns.mx_resources("gmail.com")
-# => Array(Resolv::DNS::Resource::MX)
+dns.resources("crystal-lang.org", :a)
+# #<Resolv::DNS::Resource::A:0x1010d0c40 @address="18.66.112.124">
+
+dns.mx_resources("gmail.com")
+# #<Resolv::DNS::Resource::MX:0x1010d0560 @preference=40, @exchange="alt4.gmail-smtp-in.l.google.com">
+
+dns.soa_resources("gmail.com")
+# => #<Resolv::DNS::Resource::SOA:0x10245c100 @mname="ns1.google.com", @rname="dns-admin.google.com", @serial=646797294, @refresh=900, @retry=900, @expire=1800, @minimum=60>
 ```
 
 ## Contributing
