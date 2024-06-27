@@ -26,6 +26,7 @@ module Resolv
       class SOA < Resource
         getter mname, rname, serial, refresh, retry, expire, minimum
 
+        # :nodoc:
         def initialize(
           @mname : String,
           @rname : String,
@@ -39,6 +40,9 @@ module Resolv
       end
 
       class MX < Resource
+        getter preference, exchange
+
+        # :nodoc:
         def initialize(
           @preference : UInt16,
           @exchange : String
@@ -49,6 +53,7 @@ module Resolv
       class A < Resource
         getter address
 
+        # :nodoc:
         def initialize(@address : String)
         end
       end
@@ -56,6 +61,7 @@ module Resolv
       class NS < Resource
         getter nsdname
 
+        # :nodoc:
         def initialize(@nsdname : String)
         end
       end
@@ -63,6 +69,7 @@ module Resolv
       class CNAME < Resource
         getter cname
 
+        # :nodoc:
         def initialize(@cname : String)
         end
       end
@@ -70,6 +77,7 @@ module Resolv
       class PTR < Resource
         getter ptrdname
 
+        # :nodoc:
         def initialize(@ptrdname : String)
         end
       end
@@ -77,6 +85,7 @@ module Resolv
       class TXT < Resource
         getter txt_data
 
+        # :nodoc:
         def initialize(@txt_data : Array(String))
         end
       end
