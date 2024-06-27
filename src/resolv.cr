@@ -133,6 +133,8 @@ module Resolv
       question = labels.reduce([] of UInt8) do |acc, label|
         acc << label.size.to_u8
         acc += label.bytes
+
+        acc
       end
 
       question << 0_u8 # End of domain label sequence
@@ -224,7 +226,7 @@ module Resolv
     private def extract_a_records(response : Bytes) : Array(String)
       records = extract_records(response, :a)
 
-      records.map do |record_data, offset|
+      records.map do |_record_data, offset|
         [response[offset], response[offset + 1], response[offset + 2], response[offset + 3]].join('.')
       end
     end
