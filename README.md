@@ -1,6 +1,6 @@
 # Resolv
 
-TODO: Write a description here
+Resolv is a DNS resolver library written in Crystal.
 
 ## Installation
 
@@ -18,13 +18,17 @@ TODO: Write a description here
 
 ```crystal
 require "resolv"
+
+dns = Resolv::DNS.new("8.8.8.8")
+ress = dns.resources("www.ruby-lang.org", :a)
+# => Array(Resolv::DNS::Resources)
+# <Resolv::DNS::Resource::A:0x1010d0c40 @address="185.199.111.153">
+ress = dns.resources("gmail.com", :mx)
+# <Resolv::DNS::Resource::MX:0x1010d0560 @preference=40, @exchange="alt4.gmail-smtp-in.l.google.com">
+
+ress = dns.mx_resources("gmail.com")
+# => Array(Resolv::DNS::Resource::MX)
 ```
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
 
 ## Contributing
 
