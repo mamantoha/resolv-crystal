@@ -41,6 +41,7 @@ weather = {
   "partlycloudy_day" => "󰖕",
   "fair_day"         => "",
   "cloudy"           => "󰖐",
+  "clearsky_day"     => "",
 }
 
 puts closest_time.join(", ")
