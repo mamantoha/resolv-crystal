@@ -23,4 +23,26 @@ closest_time = records.min_by do |record_arry|
   (parse_time(time_str, current_time) - current_time).abs
 end
 
+location = closest_time[0]
+temperature = closest_time[1]
+humidity = closest_time[2]
+condition = closest_time[3]
+time = closest_time[4]
+
+temperature_regex = /(?<celsius>\d+\.\d+)C \((?<fahrenheit>\d+\.\d+)F\)/
+
+celsius = if m = temperature_regex.match(temperature)
+            m["celsius"]
+          else
+            temperature.split(" ").first[...-1]
+          end
+
+weather = {
+  "partlycloudy_day" => "󰖕",
+  "fair_day"         => "",
+  "cloudy"           => "󰖐",
+}
+
 puts closest_time.join(", ")
+
+puts "#{weather[condition]? || ' '} #{celsius}°C #{location}"
