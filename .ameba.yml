@@ -5,3 +5,9 @@ Lint/NotNil:
 
 Naming/BlockParameterName:
   Enabled: false
+
+Lint/UselessAssign:
+  ExcludeTypeDeclarations: false
+  Excluded:
+  - ./samples/dns_toys_weather.cr
+  Enabled: true
