@@ -67,6 +67,13 @@ dns.txt_resources("lviv.weather")
 # #<Resolv::DNS::Resource::TXT:0x104cf00a0 @txt_data=["Lviv (UA)", "28.00C (82.40F)", "43.90% hu.", "partlycloudy_day", "14:00, Thu"]>
 ```
 
+## Alternatives
+
+Other alternatives are:
+
+- <https://github.com/636f7374/durian.cr>
+- <https://gitlab.com/jgillich/crystal-dns>
+
 ## Contributing
 
 1. Fork it (<https://github.com/mamantoha/resolv-crystal/fork>)
