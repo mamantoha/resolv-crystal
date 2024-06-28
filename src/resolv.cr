@@ -3,6 +3,33 @@ require "socket"
 module Resolv
   VERSION = "0.1.0"
 
+  class Error < Exception
+    def initialize(message = "Error")
+      super(message)
+    end
+  end
+
+  enum RCode # :nodoc:
+    NoError  =  0
+    FormErr  =  1
+    ServFail =  2
+    NXDomain =  3
+    NotImp   =  4
+    Refused  =  5
+    YXDomain =  6
+    YXRRSet  =  7
+    NXRRSet  =  8
+    NotAuth  =  9
+    NotZone  = 10
+    BADVERS  = 16
+    BADSIG   = 16
+    BADKEY   = 17
+    BADTIME  = 18
+    BADMODE  = 19
+    BADNAME  = 20
+    BADALG   = 21
+  end
+
   class DNS
     # Default DNS Port
     PORT = 53
@@ -209,6 +236,10 @@ module Resolv
           received_info = socket.receive(response)
           bytes_received = received_info[0] # Number of bytes received
 
+          status = status(response)
+
+          raise Error.new(status.to_s) unless status == RCode::NoError
+
           return response[0...bytes_received] # Return the actual response
         rescue ex : IO::TimeoutError
           if retries_left > 0
@@ -220,6 +251,12 @@ module Resolv
           socket.close
         end
       end
+    end
+
+    private def status(response : Bytes) : RCode
+      status_code = (response[3] & 0x0F).to_u8
+
+      RCode.new(status_code)
     end
 
     # Extracts a domain name from the DNS response message starting at the specified offset.
