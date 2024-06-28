@@ -9,8 +9,9 @@ module Resolv
     end
   end
 
-  # http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6
-  enum RCode # :nodoc:
+  # DNS RCODEs
+  # See http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6 for reference
+  enum RCode
     NoError   =  0
     FormErr   =  1
     ServFail  =  2
