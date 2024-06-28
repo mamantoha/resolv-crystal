@@ -10,6 +10,7 @@ module Resolv
   end
 
   # DNS RCODEs
+  #
   # See http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6 for reference
   enum RCode
     NoError   =  0
@@ -243,7 +244,7 @@ module Resolv
 
           status = status(response)
 
-          raise Error.new(status.to_s) unless status == RCode::NoError
+          raise Error.new(status.to_s) unless status.no_error?
 
           return response[0...bytes_received] # Return the actual response
         rescue ex : IO::TimeoutError
