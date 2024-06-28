@@ -1,3 +1,7 @@
-Globs:
-  - "**/*.cr"
-  - "!samples"
+Lint/NotNil:
+  Excluded:
+  - ./spec/resolv_spec.cr
+  Enabled: true
+
+Naming/BlockParameterName:
+  Enabled: false
