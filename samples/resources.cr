@@ -38,6 +38,11 @@ puts "\nPTR Records:"
 ptr_records = dns.ptr_resources("206.3.217.172.in-addr.arpa")
 ptr_records.each { |record| puts record.inspect }
 
+# SRV records
+puts "\nSRV Records:"
+srv_records = dns.srv_resources("_xmpp-client._tcp.jabber.org")
+srv_records.each { |record| puts record.inspect }
+
 # TXT records
 dns = Resolv::DNS.new("dns.toys")
 txt_records = dns.txt_resources("lviv.weather")

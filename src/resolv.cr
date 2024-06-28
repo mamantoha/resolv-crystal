@@ -17,7 +17,8 @@ module Resolv
                       Array(Resource::SOA) |
                       Array(Resource::PTR) |
                       Array(Resource::TXT) |
-                      Array(Resource::AAAA)
+                      Array(Resource::AAAA) |
+                      Array(Resource::SRV)
 
     class Resource
       enum Type
@@ -29,6 +30,7 @@ module Resolv
         MX    = 15 # mail exchange
         TXT   = 16 # text strings
         AAAA  = 28 # IPv6 host address
+        SRV   = 33 # service location
       end
 
       class SOA < Resource
@@ -105,12 +107,25 @@ module Resolv
         def initialize(@txt_data : Array(String))
         end
       end
+
+      class SRV < Resource
+        getter priority, weight, port, target
+
+        # :nodoc:
+        def initialize(
+          @priority : UInt16,
+          @weight : UInt16,
+          @port : UInt16,
+          @target : String
+        )
+        end
+      end
     end
 
     def initialize(@server : String, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
     end
 
-    {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa"] %}
+    {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv"] %}
       def {{type.id}}_resources(domain : String) : Array(Resource::{{type.id.upcase}})
         resources(domain, :{{type.id}}).as(Array(Resource::{{type.id.upcase}}))
       end
@@ -146,6 +161,8 @@ module Resolv
         extract_aaaa_records(response).map do |record|
           Resource::AAAA.new(record)
         end
+      in .srv?
+        extract_srv_records(response)
       end
     end
 
@@ -351,6 +368,19 @@ module Resolv
         end
 
         Resource::TXT.new(record_texts)
+      end
+    end
+
+    private def extract_srv_records(response : Bytes) : Array(Resource::SRV)
+      offsets = extract_record_offsets(response, :srv)
+
+      offsets.map do |offset|
+        priority = (response[offset].to_u16 << 8) | response[offset + 1].to_u16
+        weight = (response[offset + 2].to_u16 << 8) | response[offset + 3].to_u16
+        port = (response[offset + 4].to_u16 << 8) | response[offset + 5].to_u16
+        target, _ = extract_name(response, offset + 6)
+
+        Resource::SRV.new(priority, weight, port, target)
       end
     end
   end

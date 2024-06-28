@@ -4,27 +4,32 @@
 
 Resolv is a DNS resolver library written in Crystal.
 
-Supported Resource Record (RR) TYPEs [[RFC 1035](https://www.rfc-editor.org/rfc/rfc1035.html)] and [[RFC 3596](https://datatracker.ietf.org/doc/html/rfc3596)]:
+Supported Resource Record (RR) TYPEs :
 
-|   | Type    | Value | Meaning                                  |
-| - | ------- | ----- | ---------------------------------------- |
-| ✓ | `A`     | `1`   | a host address                           |
-| ✓ | `NS`    | `2`   | an authoritative name server             |
-|   | `MD`    | `3`   | a mail destination (Obsolete - use MX)   |
-|   | `MF`    | `4`   | a mail forwarder (Obsolete - use MX)     |
-| ✓ | `CNAME` | `5`   | the canonical name for an alias          |
-| ✓ | `SOA`   | `6`   | marks the start of a zone of authority   |
-|   | `MB`    | `7`   | a mailbox domain name (EXPERIMENTAL)     |
-|   | `MG`    | `8`   | a mail group member (EXPERIMENTAL)       |
-|   | `MR`    | `9`   | a mail rename domain name (EXPERIMENTAL) |
-|   | `NULL`  | `10`  | a null RR (EXPERIMENTAL)                 |
-|   | `WKS`   | `11`  | a well known service description         |
-| ✓ | `PTR`   | `12`  | a domain name pointer                    |
-|   | `HINFO` | `13`  | host information                         |
-|   | `MINFO` | `14`  | mailbox or mail list information         |
-| ✓ | `MX`    | `15`  | mail exchange                            |
-| ✓ | `TXT`   | `16`  | text strings                             |
-| ✓ | `AAAA`  | `28`  | IPv6 host address                        |
+|   | Type    | Value | Meaning                                  | Defining RFC |
+| - | ------- | ----- | ---------------------------------------- | ------------ |
+| ✓ | `A`     | `1`   | a host address                           | RFC 1035     |
+| ✓ | `NS`    | `2`   | an authoritative name server             | RFC 1035     |
+|   | `MD`    | `3`   | a mail destination (Obsolete - use MX)   | RFC 1035     |
+|   | `MF`    | `4`   | a mail forwarder (Obsolete - use MX)     | RFC 1035     |
+| ✓ | `CNAME` | `5`   | the canonical name for an alias          | RFC 1035     |
+| ✓ | `SOA`   | `6`   | marks the start of a zone of authority   | RFC 1035     |
+|   | `MB`    | `7`   | a mailbox domain name (EXPERIMENTAL)     | RFC 1035     |
+|   | `MG`    | `8`   | a mail group member (EXPERIMENTAL)       | RFC 1035     |
+|   | `MR`    | `9`   | a mail rename domain name (EXPERIMENTAL) | RFC 1035     |
+|   | `NULL`  | `10`  | a null RR (EXPERIMENTAL)                 | RFC 1035     |
+|   | `WKS`   | `11`  | a well known service description         | RFC 1035     |
+| ✓ | `PTR`   | `12`  | a domain name pointer                    | RFC 1035     |
+|   | `HINFO` | `13`  | host information                         | RFC 1035     |
+|   | `MINFO` | `14`  | mailbox or mail list information         | RFC 1035     |
+| ✓ | `MX`    | `15`  | mail exchange                            | RFC 1035     |
+| ✓ | `TXT`   | `16`  | text strings                             | RFC 1035     |
+| ✓ | `AAAA`  | `28`  | IPv6 host address                        | RFC 3596     |
+| ✓ | `SRV`   | `33`  | service location                         | RFC 2782     |
+
+- [[RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035)]
+- [[RFC 3596](https://datatracker.ietf.org/doc/html/rfc3596)]
+- [[RFC 2782](https://datatracker.ietf.org/doc/html/rfc2782)]
 
 ## Installation
 
@@ -53,6 +58,9 @@ dns.mx_resources("gmail.com")
 
 dns.soa_resources("gmail.com")
 # => #<Resolv::DNS::Resource::SOA:0x10245c100 @mname="ns1.google.com", @rname="dns-admin.google.com", @serial=646797294, @refresh=900, @retry=900, @expire=1800, @minimum=60>
+
+dns.srv_resources("_xmpp-client._tcp.jabber.org")
+# #<Resolv::DNS::Resource::SRV:0x74689eebdf60 @priority=30, @weight=30, @port=5222, @target="zeus.jabber.org">
 
 dns = Resolv::DNS.new("dns.toys")
 dns.txt_resources("lviv.weather")
