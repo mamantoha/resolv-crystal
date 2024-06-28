@@ -6,7 +6,7 @@ location = ARGV[0]
 dns = Resolv::DNS.new("dns.toys", read_timeout: 5.seconds, retry: 3)
 txt_records = dns.txt_resources("#{location}.weather")
 
-records = txt_records.map { |txt_record| txt_record.txt_data }
+records = txt_records.map(&.txt_data)
 
 current_time = Time.local
 
