@@ -43,6 +43,11 @@ puts "\nSRV Records:"
 srv_records = dns.srv_resources("_xmpp-client._tcp.jabber.org")
 srv_records.each { |record| puts record.inspect }
 
+# CAA records
+puts "\nCAA Records:"
+caa_records = dns.caa_resources("shards.info")
+caa_records.each { |record| puts record.inspect }
+
 # TXT records
 dns = Resolv::DNS.new("dns.toys")
 txt_records = dns.txt_resources("lviv.weather")

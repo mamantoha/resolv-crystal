@@ -24,7 +24,8 @@ module Resolv
                       Array(Resource::PTR) |
                       Array(Resource::TXT) |
                       Array(Resource::AAAA) |
-                      Array(Resource::SRV)
+                      Array(Resource::SRV) |
+                      Array(Resource::CAA)
 
     # DNS RCODEs
     #
@@ -55,15 +56,16 @@ module Resolv
 
     class Resource
       enum Type
-        A     =  1 # a host address
-        NS    =  2 # an authoritative name server
-        CNAME =  5 # the canonical name for an alias
-        SOA   =  6 # marks the start of a zone of authority
-        PTR   = 12 # a domain name pointer
-        MX    = 15 # mail exchange
-        TXT   = 16 # text strings
-        AAAA  = 28 # IPv6 host address
-        SRV   = 33 # service location
+        A     =   1 # a host address
+        NS    =   2 # an authoritative name server
+        CNAME =   5 # the canonical name for an alias
+        SOA   =   6 # marks the start of a zone of authority
+        PTR   =  12 # a domain name pointer
+        MX    =  15 # mail exchange
+        TXT   =  16 # text strings
+        AAAA  =  28 # IPv6 host address
+        SRV   =  33 # service location
+        CAA   = 257 # certification authority authorization
       end
 
       class SOA < Resource
@@ -153,12 +155,23 @@ module Resolv
         )
         end
       end
+
+      class Resource::CAA < Resource
+        getter flags, tag, value
+
+        def initialize(
+          @flags : UInt8,
+          @tag : String,
+          @value : String
+        )
+        end
+      end
     end
 
     def initialize(@server : String, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
     end
 
-    {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv"] %}
+    {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv", "caa"] %}
       def {{type.id}}_resources(domain : String) : Array(Resource::{{type.id.upcase}})
         resources(domain, :{{type.id}}).as(Array(Resource::{{type.id.upcase}}))
       end
@@ -196,6 +209,8 @@ module Resolv
         end
       in .srv?
         extract_srv_records(response)
+      in .caa?
+        extract_caa_records(response)
       end
     end
 
@@ -311,7 +326,8 @@ module Resolv
         # Extract the name (skip it)
         _, offset = extract_name(response, offset)
 
-        type_value = (response[offset] << 8) | response[offset + 1]
+        type_value = (response[offset].to_u16 << 8) | response[offset + 1].to_u16
+
         offset += 2 # Skip TYPE
         offset += 2 # Skip CLASS
         offset += 4 # Skip TTL
@@ -424,6 +440,19 @@ module Resolv
         target, _ = extract_name(response, offset + 6)
 
         Resource::SRV.new(priority, weight, port, target)
+      end
+    end
+
+    private def extract_caa_records(response : Bytes) : Array(Resource::CAA)
+      offsets = extract_record_offsets(response, :caa)
+
+      offsets.map do |offset|
+        flags = response[offset].to_u8
+        tag_len = response[offset + 1].to_u8
+        tag = String.new(response[offset + 2, tag_len])
+        value = String.new(response[offset + 2 + tag_len, response.size - offset - 2 - tag_len])
+
+        Resource::CAA.new(flags, tag, value)
       end
     end
   end

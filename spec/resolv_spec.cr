@@ -35,4 +35,18 @@ describe Resolv do
     record.not_nil!.target.should eq("zeus-v6.jabber.org")
     record.not_nil!.port.should eq(5222)
   end
+
+  it "CAA records" do
+    dns = Resolv::DNS.new("8.8.8.8", 5.seconds, retry: 3)
+    records = dns.caa_resources("shards.info")
+
+    records.should be_a(Array(Resolv::DNS::Resource::CAA))
+    records.size.should eq(1)
+
+    record = records.first
+
+    record.not_nil!.flags.should eq(0)
+    record.not_nil!.tag.should eq("issue")
+    record.not_nil!.value.should eq("shards.info")
+  end
 end
