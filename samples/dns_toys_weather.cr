@@ -48,6 +48,7 @@ weather = {
   "heavyrainshowers_day" => "",
   "lightrainshowers_day" => "",
   "heavyrain"            => "",
+  "lightrain"            => "",
 }
 
 puts closest_time.join(", ")
