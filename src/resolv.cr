@@ -9,6 +9,32 @@ module Resolv
     end
   end
 
+  def self.default_dns_resolver : String
+    dns_servers = [] of String
+
+    {% if flag?(:win32) %}
+      output = `powershell -Command "Get-DnsClientServerAddress | Select-Object -ExpandProperty ServerAddresses"`
+
+      output.each_line do |line|
+        line = line.strip
+
+        if line != ""
+          dns_servers << line
+        end
+      end
+    {% else %}
+      if File.exists?("/etc/resolv.conf")
+        File.each_line("/etc/resolv.conf") do |line|
+          if match_result = /nameserver\s+(\S+)/.match(line)
+            dns_servers << match_result[1]
+          end
+        end
+      end
+    {% end %}
+
+    dns_servers.first? || raise Error.new("No DNS servers found")
+  end
+
   class DNS
     # Default DNS Port
     PORT = 53
@@ -168,7 +194,7 @@ module Resolv
       end
     end
 
-    def initialize(@server : String, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
+    def initialize(@server : String = Resolv.default_dns_resolver, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
     end
 
     {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv", "caa"] %}
