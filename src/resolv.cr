@@ -12,15 +12,27 @@ module Resolv
   def self.default_dns_resolver : String
     dns_servers = [] of String
 
-    if File.exists?("/etc/resolv.conf")
-      File.each_line("/etc/resolv.conf") do |line|
-        if match = /nameserver\s+(\S+)/.match(line)
-          dns_servers << match[1]
+    {% if flag?(:win32) %}
+      output = `powershell -Command "Get-DnsClientServerAddress | Select-Object -ExpandProperty ServerAddresses"`
+
+      output.each_line do |line|
+        line = line.strip
+
+        if line != ""
+          dns_servers << line
         end
       end
-    end
+    {% else %}
+      if File.exists?("/etc/resolv.conf")
+        File.each_line("/etc/resolv.conf") do |line|
+          if match_result = /nameserver\s+(\S+)/.match(line)
+            dns_servers << match_result[1]
+          end
+        end
+      end
+    {% end %}
 
-    dns_servers.first
+    dns_servers.first? || raise Error.new("No DNS servers found")
   end
 
   class DNS
