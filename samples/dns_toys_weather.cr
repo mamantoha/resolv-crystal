@@ -39,14 +39,15 @@ celsius = if m = temperature_regex.match(temperature)
 
 # https://www.nerdfonts.com/cheat-sheet
 weather = {
-  "partlycloudy_day"     => "󰖕",
+  "cloudy"               => "",
+  "partlycloudy_day"     => "",
   "partlycloudy_night"   => "",
   "fair_day"             => "",
-  "cloudy"               => "󰖐",
   "clearsky_day"         => "",
   "rainshowers_day"      => "",
   "heavyrainshowers_day" => "",
   "lightrainshowers_day" => "",
+  "heavyrain"            => "",
 }
 
 puts closest_time.join(", ")
