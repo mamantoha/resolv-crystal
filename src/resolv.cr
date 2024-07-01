@@ -9,6 +9,20 @@ module Resolv
     end
   end
 
+  def self.default_dns_resolver : String
+    dns_servers = [] of String
+
+    if File.exists?("/etc/resolv.conf")
+      File.each_line("/etc/resolv.conf") do |line|
+        if match = /nameserver\s+(\S+)/.match(line)
+          dns_servers << match[1]
+        end
+      end
+    end
+
+    dns_servers.first
+  end
+
   class DNS
     # Default DNS Port
     PORT = 53
@@ -168,7 +182,7 @@ module Resolv
       end
     end
 
-    def initialize(@server : String, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
+    def initialize(@server : String = Resolv.default_dns_resolver, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
     end
 
     {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv", "caa"] %}
