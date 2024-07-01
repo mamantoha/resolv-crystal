@@ -12,7 +12,6 @@ describe Resolv do
       addresses = records.map(&.address)
       addresses.should contain("67.205.136.192")
     end
-
   end
 
   it "A records" do
