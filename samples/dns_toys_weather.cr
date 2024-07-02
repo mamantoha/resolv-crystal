@@ -47,6 +47,7 @@ weather = {
   "rainshowers_day"      => "",
   "heavyrainshowers_day" => "",
   "lightrainshowers_day" => "",
+  "rain"                 => "",
   "heavyrain"            => "",
   "lightrain"            => "",
 }
