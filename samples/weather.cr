@@ -43,6 +43,7 @@ weather = {
   "partlycloudy_day"     => "",
   "partlycloudy_night"   => "",
   "fair_day"             => "",
+  "fair_night"           => "",
   "clearsky_day"         => "",
   "rainshowers_day"      => "",
   "heavyrainshowers_day" => "",
