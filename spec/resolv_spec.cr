@@ -60,6 +60,6 @@ describe Resolv do
 
     record.not_nil!.flags.should eq(0)
     record.not_nil!.tag.should eq("issue")
-    record.not_nil!.value.should eq("shards.info")
+    record.not_nil!.value.should eq("letsencrypt.org")
   end
 end
