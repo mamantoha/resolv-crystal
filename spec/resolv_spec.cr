@@ -36,6 +36,17 @@ describe Resolv do
     address.should match(/[a-z0-9]+:[a-z0-9]+:[a-z0-9]+:[a-z0-9]+::1/)
   end
 
+  it "CNAME records" do
+    dns = Resolv::DNS.new("8.8.8.8", 5.seconds, retry: 3)
+    records = dns.cname_resources("www.wikipedia.org")
+
+    records.should be_a(Array(Resolv::DNS::Resource::CNAME))
+    records.size.should eq(1)
+
+    cname = records.map(&.cname).first
+    cname.should eq("dyna.wikimedia.org")
+  end
+
   it "SRV records" do
     dns = Resolv::DNS.new("8.8.8.8", 5.seconds, retry: 3)
     records = dns.srv_resources("_xmpp-client._tcp.jabber.org")

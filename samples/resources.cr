@@ -20,7 +20,7 @@ ns_records.each { |record| puts record.inspect }
 
 # CNAME records
 puts "\nCNAME Records:"
-cname_records = dns.cname_resources("hz.cdn.mycar168.com")
+cname_records = dns.cname_resources("www.wikipedia.org")
 cname_records.each { |record| puts record.inspect }
 
 # SOA records
