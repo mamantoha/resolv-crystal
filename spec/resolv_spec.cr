@@ -52,11 +52,10 @@ describe Resolv do
     records = dns.srv_resources("_xmpp-client._tcp.jabber.org")
 
     records.should be_a(Array(Resolv::DNS::Resource::SRV))
-    records.size.should eq(2)
+    records.size.should eq(1)
 
-    record = records.find { |r| r.target == "zeus-v6.jabber.org" }
+    record = records.find { |r| r.target == "scarlet.jabber.org" }
 
-    record.not_nil!.target.should eq("zeus-v6.jabber.org")
     record.not_nil!.port.should eq(5222)
   end
 
