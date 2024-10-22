@@ -49,6 +49,7 @@ caa_records = dns.caa_resources("shards.info")
 caa_records.each { |record| puts record.inspect }
 
 # TXT records
+puts "\nTXT Records:"
 dns = Resolv::DNS.new("dns.toys")
 txt_records = dns.txt_resources("lviv.weather")
 puts "\nTXT Records:"

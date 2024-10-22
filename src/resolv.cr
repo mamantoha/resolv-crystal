@@ -105,7 +105,7 @@ module Resolv
           @refresh : UInt32,
           @retry : UInt32,
           @expire : UInt32,
-          @minimum : UInt32
+          @minimum : UInt32,
         )
         end
       end
@@ -116,7 +116,7 @@ module Resolv
         # :nodoc:
         def initialize(
           @preference : UInt16,
-          @exchange : String
+          @exchange : String,
         )
         end
       end
@@ -177,7 +177,7 @@ module Resolv
           @priority : UInt16,
           @weight : UInt16,
           @port : UInt16,
-          @target : String
+          @target : String,
         )
         end
       end
@@ -188,7 +188,7 @@ module Resolv
         def initialize(
           @flags : UInt8,
           @tag : String,
-          @value : String
+          @value : String,
         )
         end
       end
