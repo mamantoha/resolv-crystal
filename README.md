@@ -73,8 +73,9 @@ dns.txt_resources("lviv.weather")
 
 Other alternatives are:
 
-- <https://github.com/636f7374/durian.cr>
 - <https://gitlab.com/jgillich/crystal-dns>
+- <https://github.com/636f7374/durian.cr>
+- <https://github.com/spider-gazelle/dns>
 
 ## Contributing
 
