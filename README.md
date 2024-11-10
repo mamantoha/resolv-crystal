@@ -1,6 +1,8 @@
 # Resolv
 
 [![Crystal CI](https://github.com/mamantoha/resolv-crystal/actions/workflows/crystal.yml/badge.svg)](https://github.com/mamantoha/resolv-crystal/actions/workflows/crystal.yml)
+[![GitHub release](https://img.shields.io/github/release/mamantoha/resolv-crystal.svg)](https://github.com/mamantoha/resolv-crystal/releases)
+[![License](https://img.shields.io/github/license/mamantoha/resolv-crystal.svg)](https://github.com/mamantoha/resolv-crystal/blob/master/LICENSE)
 
 Resolv is a DNS resolver library in Crystal that supports both UDP and TCP.
 
