@@ -1,4 +1,5 @@
 require "socket"
+require "http/client"
 
 module Resolv
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
@@ -83,6 +84,7 @@ module Resolv
     enum Requester
       UDP
       TCP
+      DOH
     end
 
     class Resource
@@ -284,6 +286,8 @@ module Resolv
         query_dns_udp(domain, @server, type)
       in .tcp?
         query_dns_tcp(domain, @server, type)
+      in .doh?
+        query_dns_doh(domain, @server, type)
       end
     end
 
@@ -340,6 +344,36 @@ module Resolv
       socket.close
 
       response
+    end
+
+    # DNS-over-HTTPS (DoH) for DNS wireformat (RFC 1035)
+    #
+    # ```
+    # dns = Resolv::DNS.new("https://cloudflare-dns.com/dns-query", requester: :doh)
+    # a_records = dns.a_resources("shards.info")
+    # a_records.each { |record| puts record.address }
+    # ```
+    private def query_dns_doh(domain : String, server : String, type : Resource::Type) : Bytes
+      dns_query = build_dns_query(domain: domain, type: type)
+
+      uri = URI.parse(@server)
+      client = HTTP::Client.new(uri)
+
+      headers = HTTP::Headers{
+        "Accept"         => "application/dns-message",
+        "Content-Type"   => "application/dns-message",
+        "Content-Length" => dns_query.size.to_s,
+      }
+
+      request = HTTP::Request.new("POST", uri.request_target, headers)
+      request.headers = headers
+      request.body = IO::Memory.new(dns_query)
+
+      response = client.exec(request)
+
+      raise Error.new("DNS query failed with HTTP status #{response.status_code}") unless response.success?
+
+      response.body.to_slice
     end
 
     private def status(response : Bytes) : RCode
