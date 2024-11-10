@@ -85,4 +85,18 @@ describe Resolv do
       addresses.should contain("67.205.136.192")
     end
   end
+
+  context "DOH requester" do
+    it "A records" do
+      # https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/
+      dns = Resolv::DNS.new("https://cloudflare-dns.com/dns-query", requester: :doh)
+      records = dns.a_resources("shards.info")
+
+      records.should be_a(Array(Resolv::DNS::Resource::A))
+      records.size.should eq(1)
+
+      addresses = records.map(&.address)
+      addresses.should contain("67.205.136.192")
+    end
+  end
 end
