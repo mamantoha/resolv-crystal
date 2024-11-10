@@ -2,7 +2,7 @@
 
 [![Crystal CI](https://github.com/mamantoha/resolv-crystal/actions/workflows/crystal.yml/badge.svg)](https://github.com/mamantoha/resolv-crystal/actions/workflows/crystal.yml)
 
-Resolv is a DNS resolver library written in Crystal.
+Resolv is a DNS resolver library in Crystal that supports both UDP and TCP.
 
 Supported Resource Record (RR) TYPEs :
 
@@ -50,7 +50,7 @@ Supported Resource Record (RR) TYPEs :
 ```crystal
 require "resolv"
 
-dns = Resolv::DNS.new("8.8.8.8", read_timeout: 10.seconds, retry: 3)
+dns = Resolv::DNS.new("8.8.8.8", read_timeout: 10.seconds, retry: 3, requester: :tcp)
 
 dns.resources("crystal-lang.org", :a)
 # #<Resolv::DNS::Resource::A:0x1010d0c40 @address="18.66.112.124">
