@@ -269,20 +269,16 @@ module Resolv
     end
 
     private def query_dns(domain : String, server : String, type : Resource::Type) : Bytes
-      retries_left = @retry || 0
-
       dns_query = build_dns_query(domain: domain, type: type)
-
-      ip = Socket::IPAddress.new(server, PORT)
+      retries_left = @retry || 0
 
       loop do
         socket = UDPSocket.new
         socket.read_timeout = @read_timeout
 
         begin
-          socket.connect(ip)
+          socket.connect(server, PORT)
           socket.send(dns_query)
-
           response = Bytes.new(UDP_SIZE)
           received_info = socket.receive(response)
           bytes_received = received_info[0] # Number of bytes received
