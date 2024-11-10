@@ -337,8 +337,6 @@ module Resolv
       response = Bytes.new(response_length)
       socket.read_fully(response)
 
-      p! status(response)
-
       socket.close
 
       response
