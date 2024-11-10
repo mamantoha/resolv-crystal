@@ -80,6 +80,11 @@ module Resolv
       BADCOOKIE = 23
     end
 
+    enum Requester
+      UDP
+      TCP
+    end
+
     class Resource
       enum Type
         A     =   1 # a host address
@@ -194,7 +199,12 @@ module Resolv
       end
     end
 
-    def initialize(@server : String = Resolv.default_dns_resolver, @read_timeout : Time::Span | Nil = nil, @retry : Int32 | Nil = nil)
+    def initialize(
+      @server : String = Resolv.default_dns_resolver,
+      @read_timeout : Time::Span | Nil = nil,
+      @retry : Int32 | Nil = nil,
+      @requester : Requester = Requester::UDP,
+    )
     end
 
     {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv", "caa"] %}
@@ -269,6 +279,15 @@ module Resolv
     end
 
     private def query_dns(domain : String, server : String, type : Resource::Type) : Bytes
+      case @requester
+      in .udp?
+        query_dns_udp(domain, @server, type)
+      in .tcp?
+        query_dns_tcp(domain, @server, type)
+      end
+    end
+
+    private def query_dns_udp(domain : String, server : String, type : Resource::Type) : Bytes
       dns_query = build_dns_query(domain: domain, type: type)
       retries_left = @retry || 0
 
@@ -298,6 +317,31 @@ module Resolv
           socket.close
         end
       end
+    end
+
+    private def query_dns_tcp(domain : String, server : String, type : Resource::Type) : Bytes
+      dns_query = build_dns_query(domain: domain, type: type)
+
+      socket = TCPSocket.new
+      socket.connect(server, PORT)
+
+      # Send the length-prefixed DNS query
+      length_prefix = Bytes[dns_query.size.to_u16 >> 8, dns_query.size.to_u16 & 0xFF]
+      socket.write(length_prefix + dns_query)
+
+      # Read the length-prefixed DNS response
+      response_length_bytes = Bytes.new(2)
+      socket.read_fully(response_length_bytes)
+      response_length = (response_length_bytes[0] << 8) | response_length_bytes[1]
+
+      response = Bytes.new(response_length)
+      socket.read_fully(response)
+
+      p! status(response)
+
+      socket.close
+
+      response
     end
 
     private def status(response : Bytes) : RCode
