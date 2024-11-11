@@ -1,13 +1,4 @@
-Lint/NotNil:
+Naming/TypeNames:
   Excluded:
-  - ./spec/resolv_spec.cr
-  Enabled: true
-
-Naming/BlockParameterName:
-  Enabled: false
-
-Lint/UselessAssign:
-  ExcludeTypeDeclarations: false
-  Excluded:
-  - ./samples/weather.cr
+  - ./src/ext/lib_c/get_network_params.cr
   Enabled: true
