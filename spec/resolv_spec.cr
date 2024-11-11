@@ -54,7 +54,7 @@ describe Resolv do
     records.should be_a(Array(Resolv::DNS::Resource::SRV))
     records.size.should eq(1)
 
-    record = records.find { |r| r.target == "scarlet.jabber.org" }
+    record = records.find { |rec| rec.target == "scarlet.jabber.org" }
 
     record.not_nil!.port.should eq(5222)
   end

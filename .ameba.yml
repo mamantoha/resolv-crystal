@@ -1,4 +1,13 @@
 Naming/TypeNames:
+  Description: Enforces type names in camelcase manner
   Excluded:
   - ./src/ext/lib_c/get_network_params.cr
   Enabled: true
+  Severity: Convention
+
+Lint/NotNil:
+  Description: Identifies usage of `not_nil!` calls
+  Excluded:
+  - ./spec/resolv_spec.cr
+  Enabled: true
+  Severity: Warning
