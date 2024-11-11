@@ -1,6 +1,10 @@
 require "socket"
 require "http/client"
 
+{% if flag?(:win32) %}
+  require "./win32/resolv"
+{% end %}
+
 module Resolv
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
 
@@ -14,15 +18,7 @@ module Resolv
     dns_servers = [] of String
 
     {% if flag?(:win32) %}
-      output = `powershell -Command "Get-DnsClientServerAddress | Select-Object -ExpandProperty ServerAddresses"`
-
-      output.each_line do |line|
-        line = line.strip
-
-        if line != ""
-          dns_servers << line
-        end
-      end
+      dns_servers = Resolv.get_dns_server_list
     {% else %}
       if File.exists?("/etc/resolv.conf")
         File.each_line("/etc/resolv.conf") do |line|
