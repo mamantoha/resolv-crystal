@@ -22,6 +22,8 @@ module Resolv
     {% else %}
       if File.exists?("/etc/resolv.conf")
         File.each_line("/etc/resolv.conf") do |line|
+          line = line.sub(/[#;].*/, "")
+
           if match_result = /nameserver\s+(\S+)/.match(line)
             dns_servers << match_result[1]
           end
