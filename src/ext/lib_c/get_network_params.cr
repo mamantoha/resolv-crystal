@@ -25,12 +25,12 @@ lib LibC
   end
 
   enum WIN32_ERROR : UInt32
-    NO_ERROR = 0
+    NO_ERROR              =   0
     ERROR_BUFFER_OVERFLOW = 111
   end
 
   fun GetNetworkParams(
     pfixedinfo : Pointer(FIXED_INFO_W2KSP1),
-    poutbuflen : Pointer(UInt32)
+    poutbuflen : Pointer(UInt32),
   ) : WIN32_ERROR
 end
