@@ -4,7 +4,9 @@
   module Resolv
     def self.get_dns_server_list : Array(String)
       # Initialize resolver
-      LibResolv.__res_init
+      res = LibResolv.__res_init
+
+      raise "Failed to initialize libresolv" unless res == 0
 
       res_state = LibResolv.__res_state.value
 
