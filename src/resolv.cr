@@ -1,8 +1,11 @@
 require "socket"
 require "http/client"
+require "./ext/socket/address"
 
 {% if flag?(:win32) %}
   require "./win32/resolv"
+{% elsif flag?(:linux) %}
+  require "./linux/resolv"
 {% end %}
 
 module Resolv
@@ -18,6 +21,8 @@ module Resolv
     dns_servers = [] of String
 
     {% if flag?(:win32) %}
+      dns_servers = Resolv.get_dns_server_list
+    {% elsif flag?(:linux) %}
       dns_servers = Resolv.get_dns_server_list
     {% else %}
       if File.exists?("/etc/resolv.conf")
