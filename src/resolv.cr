@@ -4,8 +4,8 @@ require "./ext/socket/address"
 
 {% if flag?(:win32) %}
   require "./win32/resolv"
-{% else %}
-  require "./ext/lib_c/resolv"
+{% elsif flag?(:linux) %}
+  require "./linux/resolv"
 {% end %}
 
 module Resolv
@@ -22,23 +22,18 @@ module Resolv
 
     {% if flag?(:win32) %}
       dns_servers = Resolv.get_dns_server_list
+    {% elsif flag?(:linux) %}
+      dns_servers = Resolv.get_dns_server_list
     {% else %}
-      # Initialize resolver
-      LibResolv.__res_init
+      if File.exists?("/etc/resolv.conf")
+        File.each_line("/etc/resolv.conf") do |line|
+          line = line.sub(/[#;].*/, "")
 
-      res_state = LibResolv.__res_state.value
-
-      dns_servers = [] of String
-
-      res_state.nsaddr_list.each do |addr|
-        next if addr.sin_port == 0
-        next if addr.sin_family == 0
-
-        ip_string = Socket::IPAddress.from(pointerof(addr)).address
-        dns_servers << ip_string
+          if match_result = /nameserver\s+(\S+)/.match(line)
+            dns_servers << match_result[1]
+          end
+        end
       end
-
-      dns_servers
     {% end %}
 
     dns_servers.first? || raise Error.new("No DNS servers found")
