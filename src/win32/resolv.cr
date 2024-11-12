@@ -11,7 +11,7 @@
     # ```
     #
     # ```
-    # Resolv.get_dns_server_listc
+    # Resolv.get_dns_server_list
     # => ["10.0.2.3"]
     # ```
     def self.get_dns_server_list : Array(String)
