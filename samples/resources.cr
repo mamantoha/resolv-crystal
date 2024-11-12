@@ -52,5 +52,4 @@ caa_records.each { |record| puts record.inspect }
 puts "\nTXT Records:"
 dns = Resolv::DNS.new("dns.toys")
 txt_records = dns.txt_resources("lviv.weather")
-puts "\nTXT Records:"
 txt_records.each { |record| puts record.inspect }
