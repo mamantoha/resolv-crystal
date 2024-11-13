@@ -1,16 +1,18 @@
-{% if flag?(:darwin) %}
-  require "../ext/lib_c/darwin/lib_resolv"
+{% if flag?(:linux) %}
+  require "../../ext/lib_c/linux/lib_resolv"
 
   module Resolv
     def self.get_dns_server_list : Array(String)
-      state_ptr = Pointer(LibResolv::State).malloc(sizeof(LibResolv::State))
-      LibResolv.ninit(state_ptr)
-      state = state_ptr.value
-      LibResolv.nclose(state_ptr)
+      # Initialize resolver
+      res = LibResolv.__res_init
+
+      raise "Failed to initialize libresolv" unless res == 0
+
+      res_state = LibResolv.__res_state.value
 
       dns_servers = [] of String
 
-      state.nsaddr_list.each do |addr|
+      res_state.nsaddr_list.each do |addr|
         next if addr.sin_port == 0
         next if addr.sin_family == 0
 

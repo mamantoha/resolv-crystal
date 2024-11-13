@@ -3,11 +3,11 @@ require "http/client"
 require "./ext/socket/address"
 
 {% if flag?(:windows) %}
-  require "./windows/resolv"
+  require "./resolv/windows/resolv"
 {% elsif flag?(:linux) %}
-  require "./linux/resolv"
+  require "./resolv/linux/resolv"
 {% elsif flag?(:darwin) %}
-  require "./darwin/resolv"
+  require "./resolv/darwin/resolv"
 {% end %}
 
 module Resolv

@@ -1,5 +1,5 @@
 {% if flag?(:windows) %}
-  require "../ext/lib_c/windows/get_network_params"
+  require "../../ext/lib_c/windows/get_network_params"
 
   module Resolv
     # Port of Ruby's `Win32::Resolv.get_dns_server_list`
