@@ -1,5 +1,5 @@
 {% if flag?(:linux) %}
-  require "../ext/lib_c/resolv"
+  require "../ext/lib_c/linux/lib_resolv"
 
   module Resolv
     def self.get_dns_server_list : Array(String)

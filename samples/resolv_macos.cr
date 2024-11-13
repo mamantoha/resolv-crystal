@@ -28,8 +28,6 @@ def get_dns_server_list : Array(String)
   state = state_ptr.value
   LibResolv.nclose(state_ptr)
 
-  p! state
-
   dns_servers = [] of String
 
   state.nsaddr_list.each do |addr|
