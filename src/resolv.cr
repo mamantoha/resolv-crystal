@@ -6,6 +6,8 @@ require "./ext/socket/address"
   require "./windows/resolv"
 {% elsif flag?(:linux) %}
   require "./linux/resolv"
+{% elsif flag?(:darwin) %}
+  require "./darwin/resolv"
 {% end %}
 
 module Resolv
@@ -23,6 +25,8 @@ module Resolv
     {% if flag?(:windows) %}
       dns_servers = Resolv.get_dns_server_list
     {% elsif flag?(:linux) %}
+      dns_servers = Resolv.get_dns_server_list
+    {% elsif flag?(:darwin) %}
       dns_servers = Resolv.get_dns_server_list
     {% else %}
       if File.exists?("/etc/resolv.conf")
