@@ -1,7 +1,7 @@
 Naming/TypeNames:
   Description: Enforces type names in camelcase manner
   Excluded:
-  - ./src/ext/lib_c/get_network_params.cr
+  - ./src/ext/lib_c/windows/get_network_params.cr
   Enabled: true
   Severity: Convention
 

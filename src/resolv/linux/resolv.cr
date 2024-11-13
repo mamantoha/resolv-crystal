@@ -1,14 +1,13 @@
 {% if flag?(:linux) %}
-  require "../ext/lib_c/linux/lib_resolv"
+  require "../../ext/lib_c/linux/lib_resolv"
 
   module Resolv
     def self.get_dns_server_list : Array(String)
-      # Initialize resolver
-      res = LibResolv.__res_init
+      res = LibResolv.init
 
       raise "Failed to initialize libresolv" unless res == 0
 
-      res_state = LibResolv.__res_state.value
+      res_state = LibResolv.state.value
 
       dns_servers = [] of String
 

@@ -1,11 +1,10 @@
 @[Link("resolv")]
 lib LibResolv
-  fun init = __res_init : Int32
+  fun ninit = res_9_ninit(Pointer(State)) : Int32
+  fun nclose = res_9_nclose(Pointer(State)) : Void
 
   struct State
     nscount : Int32
     nsaddr_list : StaticArray(LibC::SockaddrIn, 3)
   end
-
-  fun state = __res_state : Pointer(State)
 end

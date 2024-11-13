@@ -17,9 +17,6 @@ lib LibResolv
     nscount : Int32
     nsaddr_list : StaticArray(LibC::SockaddrIn, 3)
   end
-
-  # fun state = __res_state : Pointer(State)
-  fun state = _res : Pointer(State)
 end
 
 def get_dns_server_list : Array(String)
