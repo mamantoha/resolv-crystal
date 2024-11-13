@@ -2,8 +2,8 @@ require "socket"
 require "http/client"
 require "./ext/socket/address"
 
-{% if flag?(:win32) %}
-  require "./win32/resolv"
+{% if flag?(:windows) %}
+  require "./windows/resolv"
 {% elsif flag?(:linux) %}
   require "./linux/resolv"
 {% end %}
@@ -20,7 +20,7 @@ module Resolv
   def self.default_dns_resolver : String
     dns_servers = [] of String
 
-    {% if flag?(:win32) %}
+    {% if flag?(:windows) %}
       dns_servers = Resolv.get_dns_server_list
     {% elsif flag?(:linux) %}
       dns_servers = Resolv.get_dns_server_list
