@@ -10,33 +10,33 @@ end
 
 @[Link("resolv")]
 lib LibResolv
-  fun __res_init : Int32
-  fun __res_ninit(Pointer(ResState)) : Int32
-  fun __res_nclose(Pointer(ResState)) : Void
+  fun init = __res_init : Int32
+  fun ninit = __res_ninit(Pointer(State)) : Int32
+  fun nclose = __res_nclose(Pointer(State)) : Void
 
-  struct ResState
+  struct State
     nscount : Int32
     nsaddr_list : StaticArray(LibC::SockaddrIn, 3)
   end
 
-  fun __res_state : Pointer(ResState)
+  fun state = __res_state : Pointer(State)
 end
 
 def get_dns_server_list : Array(String)
   # Initialize resolver
-  LibResolv.__res_init
-  res_state = LibResolv.__res_state.value
+  LibResolv.init
+  state = LibResolv.state.value
 
-  # res_state_ptr = Pointer(LibResolv::ResState).malloc(sizeof(LibResolv::ResState))
-  # LibResolv.__res_ninit(res_state_ptr)
-  # res_state = res_state_ptr.value
-  # LibResolv.__res_nclose(res_state_ptr)
+  # state_ptr = Pointer(LibResolv::State).malloc(sizeof(LibResolv::State))
+  # LibResolv.ninit(state_ptr)
+  # state = state_ptr.value
+  # LibResolv.nclose(state_ptr)
 
-  p! res_state
+  p! state
 
   dns_servers = [] of String
 
-  res_state.nsaddr_list.each do |addr|
+  state.nsaddr_list.each do |addr|
     next if addr.sin_port == 0
     next if addr.sin_family == 0
 
