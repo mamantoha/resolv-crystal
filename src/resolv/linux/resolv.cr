@@ -7,11 +7,11 @@
 
       raise "Failed to initialize libresolv" unless res == 0
 
-      res_state = LibResolv.state.value
+      state = LibResolv.state.value
 
       dns_servers = [] of String
 
-      res_state.nsaddr_list.each do |addr|
+      state.nsaddr_list.each do |addr|
         next if addr.sin_port == 0
         next if addr.sin_family == 0
 
