@@ -24,13 +24,13 @@ end
 
 def get_dns_server_list : Array(String)
   # Initialize resolver
-  LibResolv.init
-  state = LibResolv.state.value
+  # LibResolv.init
+  # state = LibResolv.state.value
 
-  # state_ptr = Pointer(LibResolv::State).malloc(sizeof(LibResolv::State))
-  # LibResolv.ninit(state_ptr)
-  # state = state_ptr.value
-  # LibResolv.nclose(state_ptr)
+  state_ptr = Pointer(LibResolv::State).malloc(sizeof(LibResolv::State))
+  LibResolv.ninit(state_ptr)
+  state = state_ptr.value
+  LibResolv.nclose(state_ptr)
 
   dns_servers = [] of String
 

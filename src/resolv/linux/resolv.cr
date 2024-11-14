@@ -3,11 +3,10 @@
 
   module Resolv
     def self.get_dns_server_list : Array(String)
-      res = LibResolv.init
-
-      raise "Failed to initialize libresolv" unless res == 0
-
-      state = LibResolv.state.value
+      state_ptr = Pointer(LibResolv::State).malloc(sizeof(LibResolv::State))
+      LibResolv.ninit(state_ptr)
+      state = state_ptr.value
+      LibResolv.nclose(state_ptr)
 
       dns_servers = [] of String
 
