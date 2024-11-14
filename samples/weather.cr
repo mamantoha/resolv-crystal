@@ -26,7 +26,7 @@ end
 location = closest_time[0]
 temperature = closest_time[1]
 # humidity = closest_time[2]
-# condition = closest_time[3]
+condition = closest_time[3]
 # time = closest_time[4]
 
 temperature_regex = /(?<celsius>\d+\.\d+)C \((?<fahrenheit>\d+\.\d+)F\)/
