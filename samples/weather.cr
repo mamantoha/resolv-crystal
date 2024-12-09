@@ -52,6 +52,8 @@ weather = {
   "rain"                 => "",
   "heavyrain"            => "",
   "lightrain"            => "",
+  "sleet"                => "",
+  "lightsleet"           => "",
 }
 
 puts closest_time.join(", ")
