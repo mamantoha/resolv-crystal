@@ -59,4 +59,4 @@ weather = {
 
 puts closest_time.join(", ")
 
-puts "#{weather[condition]? || ' '} #{celsius}°C #{location}"
+puts "#{weather[condition]? || ' '} #{celsius.to_f.round.to_i}°C #{location}"
