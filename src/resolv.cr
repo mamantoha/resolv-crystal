@@ -22,11 +22,7 @@ module Resolv
   def self.default_dns_resolver : String
     dns_servers = [] of String
 
-    {% if flag?(:windows) %}
-      dns_servers = Resolv.get_dns_server_list
-    {% elsif flag?(:linux) %}
-      dns_servers = Resolv.get_dns_server_list
-    {% elsif flag?(:darwin) %}
+    {% if flag?(:windows) || flag?(:linux) || flag?(:darwin) %}
       dns_servers = Resolv.get_dns_server_list
     {% else %}
       if File.exists?("/etc/resolv.conf")
