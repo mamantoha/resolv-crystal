@@ -3,7 +3,7 @@ require "../src/resolv"
 
 location = ARGV[0]
 
-dns = Resolv::DNS.new("dns.toys", read_timeout: 5.seconds, retry: 3)
+dns = Resolv::DNS.new("dns.toys", read_timeout: 5.seconds, retry: 3, udp_size: 2048)
 txt_records = dns.txt_resources("#{location}.weather")
 
 records = txt_records.map(&.txt_data)
