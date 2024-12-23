@@ -209,12 +209,15 @@ module Resolv
       @read_timeout : Time::Span | Nil = nil,
       @retry : Int32 | Nil = nil,
       @requester : Requester = Requester::UDP,
+      @udp_size : Int32 = UDP_SIZE,
     )
     end
 
     {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv", "caa"] %}
       def {{type.id}}_resources(domain : String) : Array(Resource::{{type.id.upcase}})
         resources(domain, :{{type.id}}).as(Array(Resource::{{type.id.upcase}}))
+      rescue ex
+        raise Resolv::Error.new("Unknown error: `#{ex.message}`")
       end
     {% end %}
 
@@ -305,7 +308,7 @@ module Resolv
         begin
           socket.connect(server, PORT)
           socket.send(dns_query)
-          response = Bytes.new(UDP_SIZE)
+          response = Bytes.new(@udp_size)
           received_info = socket.receive(response)
           bytes_received = received_info[0] # Number of bytes received
 
