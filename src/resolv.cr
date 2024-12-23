@@ -44,7 +44,7 @@ module Resolv
     PORT = 53
 
     # Default DNS UDP packet size
-    UDP_SIZE = 2048
+    UDP_SIZE = 512
 
     alias Resources = Array(Resource::A) |
                       Array(Resource::CNAME) |
@@ -209,6 +209,7 @@ module Resolv
       @read_timeout : Time::Span | Nil = nil,
       @retry : Int32 | Nil = nil,
       @requester : Requester = Requester::UDP,
+      @udp_size : Int32 = UDP_SIZE,
     )
     end
 
@@ -305,7 +306,7 @@ module Resolv
         begin
           socket.connect(server, PORT)
           socket.send(dns_query)
-          response = Bytes.new(UDP_SIZE)
+          response = Bytes.new(@udp_size)
           received_info = socket.receive(response)
           bytes_received = received_info[0] # Number of bytes received
 
