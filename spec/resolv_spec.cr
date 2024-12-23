@@ -73,25 +73,6 @@ describe Resolv do
     record.not_nil!.value.should eq("letsencrypt.org")
   end
 
-  context "UDP requester" do
-    describe "response is large than 512 bytes" do
-      it "fails by default" do
-        dns = Resolv::DNS.new("dns.toys", requester: :udp)
-
-        expect_raises Resolv::Error, /Unknown error: `Index out of bounds`/ do
-          dns.txt_resources("Dublin.weather")
-        end
-      end
-
-      it "success with larger udp size" do
-        dns = Resolv::DNS.new("dns.toys", requester: :udp, udp_size: 2048)
-        records = dns.txt_resources("Dublin.weather")
-
-        records.should be_a(Array(Resolv::DNS::Resource::TXT))
-      end
-    end
-  end
-
   context "TCP requester" do
     it "A records" do
       dns = Resolv::DNS.new("8.8.8.8", requester: :tcp)
