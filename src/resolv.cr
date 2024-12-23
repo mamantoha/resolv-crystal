@@ -44,7 +44,7 @@ module Resolv
     PORT = 53
 
     # Default DNS UDP packet size
-    UDP_SIZE = 512
+    UDP_SIZE = 2048
 
     alias Resources = Array(Resource::A) |
                       Array(Resource::CNAME) |
