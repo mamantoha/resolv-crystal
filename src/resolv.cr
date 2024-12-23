@@ -264,9 +264,8 @@ module Resolv
       questions = Bytes[0x00_u8, 0x01_u8]             # One question
       answer_rrs = Bytes[0x00_u8, 0x00_u8]            # Zero answer RRs
       authority_rrs = Bytes[0x00_u8, 0x00_u8]         # Zero authority RRs
-      additional_rrs = Bytes[0x00_u8, 0x01_u8]        # One additional record (OPT for EDNS0)
+      additional_rrs = Bytes[0x00_u8, 0x00_u8]        # Zero additional RRs
 
-      # Convert domain name into DNS label format
       labels = domain.split('.')
 
       question = labels.reduce([] of UInt8) do |acc, label|
@@ -281,21 +280,10 @@ module Resolv
       question_bytes = Bytes.new(question.size)
       question.each_with_index { |byte, index| question_bytes[index] = byte }
 
-      type_bytes = Bytes[type.value.to_u16 >> 8, type.value.to_u16 & 0xFF]
+      type = Bytes[type.value.to_u16 >> 8, type.value.to_u16 & 0xFF]
       dns_class = Bytes[0x00_u8, 0x01_u8] # Class IN
 
-      # OPT record for EDNS0 to allow larger UDP payload size
-      opt_record = Bytes[
-        0x00, 0x00,             # NAME: root domain
-        0x00, 0x29,             # TYPE: OPT
-        0x10, 0x00,             # CLASS: UDP payload size = 4096
-        0x00, 0x00, 0x00, 0x00, # Extended RCODE and flags
-        0x00, 0x00              # RDLENGTH: no additional options
-      ]
-
-      # Construct the complete DNS query with EDNS0 OPT record
-      transaction_id + flags + questions + answer_rrs + authority_rrs + additional_rrs +
-        question_bytes + type_bytes + dns_class + opt_record
+      transaction_id + flags + questions + answer_rrs + authority_rrs + additional_rrs + question_bytes + type + dns_class
     end
 
     private def query_dns(domain : String, server : String, type : Resource::Type) : Bytes
