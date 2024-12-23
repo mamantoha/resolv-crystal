@@ -216,6 +216,8 @@ module Resolv
     {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv", "caa"] %}
       def {{type.id}}_resources(domain : String) : Array(Resource::{{type.id.upcase}})
         resources(domain, :{{type.id}}).as(Array(Resource::{{type.id.upcase}}))
+      rescue ex
+        raise Resolv::Error.new("Unknown error: `#{ex.message}`")
       end
     {% end %}
 
