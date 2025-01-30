@@ -558,7 +558,9 @@ module Resolv
         flags = response[offset].to_u8
         tag_len = response[offset + 1].to_u8
         tag = String.new(response[offset + 2, tag_len])
-        value = String.new(response[offset + 2 + tag_len, response.size - offset - 2 - tag_len])
+
+        value_length = (response[offset - 2] << 8) | response[offset - 1]
+        value = String.new(response[offset + 2 + tag_len, value_length - 2 - tag_len])
 
         Resource::CAA.new(flags, tag, value)
       end
