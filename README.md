@@ -29,11 +29,13 @@ Supported Resource Record (RR) TYPEs :
 | ✓ | `AAAA`  | `28`  | IPv6 host address                        | RFC 3596     |
 | ✓ | `SRV`   | `33`  | service location                         | RFC 2782     |
 | ✓ | `CAA`   | `257` | certification authority authorization    | RFC 8659     |
+| ✓ | `LOC`   | `29`  | Location record                          | RFC 1876     |
 
 - [[RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035)]
 - [[RFC 3596](https://datatracker.ietf.org/doc/html/rfc3596)]
 - [[RFC 2782](https://datatracker.ietf.org/doc/html/rfc2782)]
 - [[RFC 8659](https://datatracker.ietf.org/doc/html/rfc8659)]
+- [[RFC 1876](https://datatracker.ietf.org/doc/html/rfc1876)]
 
 ## Installation
 
