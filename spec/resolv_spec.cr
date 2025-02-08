@@ -73,6 +73,26 @@ describe Resolv do
     record.not_nil!.value.should eq("comodoca.com")
   end
 
+  it "LOC records" do
+    dns = Resolv::DNS.new("1.1.1.1", 5.seconds, retry: 3)
+    records = dns.loc_resources("shards.info")
+
+    records.should be_a(Array(Resolv::DNS::Resource::LOC))
+    records.size.should eq(1)
+
+    record = records.first
+
+    # dig loc shards.info @1.1.1.1
+    # 49 33 11.710 N 25 35 49.740 E 0.00m 1m 10000m 10m
+
+    record.not_nil!.latitude.should eq(49.55325277777777)
+    record.not_nil!.longitude.should eq(25.59715)
+    record.not_nil!.altitude.should eq(0.0)
+    record.not_nil!.size.should eq(1.0)
+    record.not_nil!.horizontal_precision.should eq(10000.0)
+    record.not_nil!.vertical_precision.should eq(10.0)
+  end
+
   context "TCP requester" do
     it "A records" do
       dns = Resolv::DNS.new("8.8.8.8", requester: :tcp)
