@@ -197,6 +197,7 @@ module Resolv
       class Resource::CAA < Resource
         getter flags, tag, value
 
+        # :nodoc:
         def initialize(
           @flags : UInt8,
           @tag : String,
@@ -213,6 +214,7 @@ module Resolv
         getter horizontal_precision : Float64
         getter vertical_precision : Float64
 
+        # :nodoc:
         def initialize(
           @latitude : Float64,
           @longitude : Float64,
