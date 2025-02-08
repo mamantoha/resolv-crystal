@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.15.1">
+<meta name="crystal_docs.project_version" content="main">
+<meta name="crystal_docs.project_name" content="resolv">
+
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+  <meta name="repository-name" content="resolv">
+  <title>Resolv::DNS::RCode - resolv main</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          resolv
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="resolv/Resolv" data-name="resolv">
+      <a href="../../Resolv.html">Resolv</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="resolv/Resolv/DNS" data-name="resolv::dns">
+      <a href="../../Resolv/DNS.html">DNS</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="resolv/Resolv/DNS/RCode" data-name="resolv::dns::rcode">
+      <a href="../../Resolv/DNS/RCode.html">RCode</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Requester" data-name="resolv::dns::requester">
+      <a href="../../Resolv/DNS/Requester.html">Requester</a>
+      
+    </li>
+  
+  <li class="parent " data-id="resolv/Resolv/DNS/Resource" data-name="resolv::dns::resource">
+      <a href="../../Resolv/DNS/Resource.html">Resource</a>
+      
+        <ul>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/A" data-name="resolv::dns::resource::a">
+      <a href="../../Resolv/DNS/Resource/A.html">A</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/AAAA" data-name="resolv::dns::resource::aaaa">
+      <a href="../../Resolv/DNS/Resource/AAAA.html">AAAA</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/CAA" data-name="resolv::dns::resource::caa">
+      <a href="../../Resolv/DNS/Resource/CAA.html">CAA</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/CNAME" data-name="resolv::dns::resource::cname">
+      <a href="../../Resolv/DNS/Resource/CNAME.html">CNAME</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/LOC" data-name="resolv::dns::resource::loc">
+      <a href="../../Resolv/DNS/Resource/LOC.html">LOC</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/MX" data-name="resolv::dns::resource::mx">
+      <a href="../../Resolv/DNS/Resource/MX.html">MX</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/NS" data-name="resolv::dns::resource::ns">
+      <a href="../../Resolv/DNS/Resource/NS.html">NS</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/PTR" data-name="resolv::dns::resource::ptr">
+      <a href="../../Resolv/DNS/Resource/PTR.html">PTR</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/SOA" data-name="resolv::dns::resource::soa">
+      <a href="../../Resolv/DNS/Resource/SOA.html">SOA</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/SRV" data-name="resolv::dns::resource::srv">
+      <a href="../../Resolv/DNS/Resource/SRV.html">SRV</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/TXT" data-name="resolv::dns::resource::txt">
+      <a href="../../Resolv/DNS/Resource/TXT.html">TXT</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/Type" data-name="resolv::dns::resource::type">
+      <a href="../../Resolv/DNS/Resource/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resources" data-name="resolv::dns::resources">
+      <a href="../../Resolv/DNS/Resources.html">Resources</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/Error" data-name="resolv::error">
+      <a href="../../Resolv/Error.html">Error</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="resolv/Socket" data-name="socket">
+      <a href="../../Socket.html">Socket</a>
+      
+        <ul>
+  
+  <li class=" " data-id="resolv/Socket/IPAddress" data-name="socket::ipaddress">
+      <a href="../../Socket/IPAddress.html">IPAddress</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    enum
+  </span> Resolv::<wbr>DNS::<wbr>RCode
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>DNS RCODEs</p>
+<p>See http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6 for reference</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L64" target="_blank">
+        resolv.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="enum-members" class="anchor" href="#enum-members">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Enum Members
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="NoError">
+        <strong>NoError</strong> = <code><span class="n">0</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="FormErr">
+        <strong>FormErr</strong> = <code><span class="n">1</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="ServFail">
+        <strong>ServFail</strong> = <code><span class="n">2</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="NXDomain">
+        <strong>NXDomain</strong> = <code><span class="n">3</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="NotImp">
+        <strong>NotImp</strong> = <code><span class="n">4</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Refused">
+        <strong>Refused</strong> = <code><span class="n">5</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="YXDomain">
+        <strong>YXDomain</strong> = <code><span class="n">6</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="YXRRSet">
+        <strong>YXRRSet</strong> = <code><span class="n">7</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="NXRRSet">
+        <strong>NXRRSet</strong> = <code><span class="n">8</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="NotAuth">
+        <strong>NotAuth</strong> = <code><span class="n">9</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="NotZone">
+        <strong>NotZone</strong> = <code><span class="n">10</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="DSOTYPENI">
+        <strong>DSOTYPENI</strong> = <code><span class="n">11</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADVERS">
+        <strong>BADVERS</strong> = <code><span class="n">16</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADSIG">
+        <strong>BADSIG</strong> = <code><span class="n">16</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADKEY">
+        <strong>BADKEY</strong> = <code><span class="n">17</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADTIME">
+        <strong>BADTIME</strong> = <code><span class="n">18</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADMODE">
+        <strong>BADMODE</strong> = <code><span class="n">19</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADNAME">
+        <strong>BADNAME</strong> = <code><span class="n">20</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADALG">
+        <strong>BADALG</strong> = <code><span class="n">21</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADTRUNC">
+        <strong>BADTRUNC</strong> = <code><span class="n">22</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BADCOOKIE">
+        <strong>BADCOOKIE</strong> = <code><span class="n">23</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#badalg%3F-instance-method" class="signature"><strong>#badalg?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADALG">BADALG</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#badcookie%3F-instance-method" class="signature"><strong>#badcookie?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADCOOKIE">BADCOOKIE</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#badkey%3F-instance-method" class="signature"><strong>#badkey?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADKEY">BADKEY</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#badmode%3F-instance-method" class="signature"><strong>#badmode?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADMODE">BADMODE</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#badname%3F-instance-method" class="signature"><strong>#badname?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADNAME">BADNAME</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#badsig%3F-instance-method" class="signature"><strong>#badsig?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADSIG">BADSIG</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#badtime%3F-instance-method" class="signature"><strong>#badtime?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADTIME">BADTIME</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#badtrunc%3F-instance-method" class="signature"><strong>#badtrunc?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADTRUNC">BADTRUNC</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#badvers%3F-instance-method" class="signature"><strong>#badvers?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADVERS">BADVERS</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dsotypeni%3F-instance-method" class="signature"><strong>#dsotypeni?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#DSOTYPENI">DSOTYPENI</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#form_err%3F-instance-method" class="signature"><strong>#form_err?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#FormErr">FormErr</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#no_error%3F-instance-method" class="signature"><strong>#no_error?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NoError">NoError</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not_auth%3F-instance-method" class="signature"><strong>#not_auth?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NotAuth">NotAuth</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not_imp%3F-instance-method" class="signature"><strong>#not_imp?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NotImp">NotImp</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not_zone%3F-instance-method" class="signature"><strong>#not_zone?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NotZone">NotZone</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nx_domain%3F-instance-method" class="signature"><strong>#nx_domain?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NXDomain">NXDomain</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nxrr_set%3F-instance-method" class="signature"><strong>#nxrr_set?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NXRRSet">NXRRSet</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#refused%3F-instance-method" class="signature"><strong>#refused?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#Refused">Refused</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#serv_fail%3F-instance-method" class="signature"><strong>#serv_fail?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#ServFail">ServFail</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#yx_domain%3F-instance-method" class="signature"><strong>#yx_domain?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#YXDomain">YXDomain</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#yxrr_set%3F-instance-method" class="signature"><strong>#yxrr_set?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#YXRRSet">YXRRSet</a></code></p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="badalg?-instance-method">
+      <div class="signature">
+        
+        def <strong>badalg?</strong>
+
+        <a class="method-permalink" href="#badalg%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADALG">BADALG</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L83" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="badcookie?-instance-method">
+      <div class="signature">
+        
+        def <strong>badcookie?</strong>
+
+        <a class="method-permalink" href="#badcookie%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADCOOKIE">BADCOOKIE</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L85" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="badkey?-instance-method">
+      <div class="signature">
+        
+        def <strong>badkey?</strong>
+
+        <a class="method-permalink" href="#badkey%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADKEY">BADKEY</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L79" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="badmode?-instance-method">
+      <div class="signature">
+        
+        def <strong>badmode?</strong>
+
+        <a class="method-permalink" href="#badmode%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADMODE">BADMODE</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L81" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="badname?-instance-method">
+      <div class="signature">
+        
+        def <strong>badname?</strong>
+
+        <a class="method-permalink" href="#badname%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADNAME">BADNAME</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L82" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="badsig?-instance-method">
+      <div class="signature">
+        
+        def <strong>badsig?</strong>
+
+        <a class="method-permalink" href="#badsig%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADSIG">BADSIG</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L78" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="badtime?-instance-method">
+      <div class="signature">
+        
+        def <strong>badtime?</strong>
+
+        <a class="method-permalink" href="#badtime%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADTIME">BADTIME</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L80" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="badtrunc?-instance-method">
+      <div class="signature">
+        
+        def <strong>badtrunc?</strong>
+
+        <a class="method-permalink" href="#badtrunc%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADTRUNC">BADTRUNC</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L84" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="badvers?-instance-method">
+      <div class="signature">
+        
+        def <strong>badvers?</strong>
+
+        <a class="method-permalink" href="#badvers%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#BADVERS">BADVERS</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L77" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dsotypeni?-instance-method">
+      <div class="signature">
+        
+        def <strong>dsotypeni?</strong>
+
+        <a class="method-permalink" href="#dsotypeni%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#DSOTYPENI">DSOTYPENI</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L76" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="form_err?-instance-method">
+      <div class="signature">
+        
+        def <strong>form_err?</strong>
+
+        <a class="method-permalink" href="#form_err%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#FormErr">FormErr</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L66" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="no_error?-instance-method">
+      <div class="signature">
+        
+        def <strong>no_error?</strong>
+
+        <a class="method-permalink" href="#no_error%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NoError">NoError</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L65" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not_auth?-instance-method">
+      <div class="signature">
+        
+        def <strong>not_auth?</strong>
+
+        <a class="method-permalink" href="#not_auth%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NotAuth">NotAuth</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L74" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not_imp?-instance-method">
+      <div class="signature">
+        
+        def <strong>not_imp?</strong>
+
+        <a class="method-permalink" href="#not_imp%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NotImp">NotImp</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L69" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not_zone?-instance-method">
+      <div class="signature">
+        
+        def <strong>not_zone?</strong>
+
+        <a class="method-permalink" href="#not_zone%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NotZone">NotZone</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L75" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nx_domain?-instance-method">
+      <div class="signature">
+        
+        def <strong>nx_domain?</strong>
+
+        <a class="method-permalink" href="#nx_domain%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NXDomain">NXDomain</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L68" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nxrr_set?-instance-method">
+      <div class="signature">
+        
+        def <strong>nxrr_set?</strong>
+
+        <a class="method-permalink" href="#nxrr_set%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#NXRRSet">NXRRSet</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L73" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="refused?-instance-method">
+      <div class="signature">
+        
+        def <strong>refused?</strong>
+
+        <a class="method-permalink" href="#refused%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#Refused">Refused</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L70" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="serv_fail?-instance-method">
+      <div class="signature">
+        
+        def <strong>serv_fail?</strong>
+
+        <a class="method-permalink" href="#serv_fail%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#ServFail">ServFail</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L67" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="yx_domain?-instance-method">
+      <div class="signature">
+        
+        def <strong>yx_domain?</strong>
+
+        <a class="method-permalink" href="#yx_domain%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#YXDomain">YXDomain</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L71" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="yxrr_set?-instance-method">
+      <div class="signature">
+        
+        def <strong>yxrr_set?</strong>
+
+        <a class="method-permalink" href="#yxrr_set%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../../Resolv/DNS/RCode.html#YXRRSet">YXRRSet</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L72" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+</div>
+
+</body>
+</html>

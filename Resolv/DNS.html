@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.15.1">
+<meta name="crystal_docs.project_version" content="main">
+<meta name="crystal_docs.project_name" content="resolv">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="resolv">
+  <title>Resolv::DNS - resolv main</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          resolv
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="resolv/Resolv" data-name="resolv">
+      <a href="../Resolv.html">Resolv</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="resolv/Resolv/DNS" data-name="resolv::dns">
+      <a href="../Resolv/DNS.html">DNS</a>
+      
+        <ul>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/RCode" data-name="resolv::dns::rcode">
+      <a href="../Resolv/DNS/RCode.html">RCode</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Requester" data-name="resolv::dns::requester">
+      <a href="../Resolv/DNS/Requester.html">Requester</a>
+      
+    </li>
+  
+  <li class="parent " data-id="resolv/Resolv/DNS/Resource" data-name="resolv::dns::resource">
+      <a href="../Resolv/DNS/Resource.html">Resource</a>
+      
+        <ul>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/A" data-name="resolv::dns::resource::a">
+      <a href="../Resolv/DNS/Resource/A.html">A</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/AAAA" data-name="resolv::dns::resource::aaaa">
+      <a href="../Resolv/DNS/Resource/AAAA.html">AAAA</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/CAA" data-name="resolv::dns::resource::caa">
+      <a href="../Resolv/DNS/Resource/CAA.html">CAA</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/CNAME" data-name="resolv::dns::resource::cname">
+      <a href="../Resolv/DNS/Resource/CNAME.html">CNAME</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/LOC" data-name="resolv::dns::resource::loc">
+      <a href="../Resolv/DNS/Resource/LOC.html">LOC</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/MX" data-name="resolv::dns::resource::mx">
+      <a href="../Resolv/DNS/Resource/MX.html">MX</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/NS" data-name="resolv::dns::resource::ns">
+      <a href="../Resolv/DNS/Resource/NS.html">NS</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/PTR" data-name="resolv::dns::resource::ptr">
+      <a href="../Resolv/DNS/Resource/PTR.html">PTR</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/SOA" data-name="resolv::dns::resource::soa">
+      <a href="../Resolv/DNS/Resource/SOA.html">SOA</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/SRV" data-name="resolv::dns::resource::srv">
+      <a href="../Resolv/DNS/Resource/SRV.html">SRV</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/TXT" data-name="resolv::dns::resource::txt">
+      <a href="../Resolv/DNS/Resource/TXT.html">TXT</a>
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resource/Type" data-name="resolv::dns::resource::type">
+      <a href="../Resolv/DNS/Resource/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/DNS/Resources" data-name="resolv::dns::resources">
+      <a href="../Resolv/DNS/Resources.html">Resources</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="resolv/Resolv/Error" data-name="resolv::error">
+      <a href="../Resolv/Error.html">Error</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="resolv/Socket" data-name="socket">
+      <a href="../Socket.html">Socket</a>
+      
+        <ul>
+  
+  <li class=" " data-id="resolv/Socket/IPAddress" data-name="socket::ipaddress">
+      <a href="../Socket/IPAddress.html">IPAddress</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    class
+  </span> Resolv::<wbr>DNS
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Resolv/DNS.html">Resolv::DNS</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L42" target="_blank">
+        resolv.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="PORT">
+        <strong>PORT</strong> = <code><span class="n">53</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Default DNS Port</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="UDP_SIZE">
+        <strong>UDP_SIZE</strong> = <code><span class="n">512</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Default DNS UDP packet size</p>
+      </dd>
+      
+    
+  </dl>
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28server%3AString%3DResolv.default_dns_resolver%2Cread_timeout%3ATime%3A%3ASpan%7CNil%3Dnil%2Cretry%3AInt32%7CNil%3Dnil%2Crequester%3ARequester%3DRequester%3A%3AUDP%2Cudp_size%3AInt32%3DUDP_SIZE%29-class-method" class="signature"><strong>.new</strong>(server : String = <span class="t">Resolv</span>.default_dns_resolver, read_timeout : Time::Span | Nil = <span class="n">nil</span>, retry : Int32 | Nil = <span class="n">nil</span>, requester : Requester = <span class="t">Requester</span><span class="t">::</span><span class="t">UDP</span>, udp_size : Int32 = <span class="t">UDP_SIZE</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#a_resources%28domain%3AString%29%3AArray%28Resource%3A%3AA%29-instance-method" class="signature"><strong>#a_resources</strong>(domain : String) : Array(Resource::A)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#aaaa_resources%28domain%3AString%29%3AArray%28Resource%3A%3AAAAA%29-instance-method" class="signature"><strong>#aaaa_resources</strong>(domain : String) : Array(Resource::AAAA)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#caa_resources%28domain%3AString%29%3AArray%28Resource%3A%3ACAA%29-instance-method" class="signature"><strong>#caa_resources</strong>(domain : String) : Array(Resource::CAA)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cname_resources%28domain%3AString%29%3AArray%28Resource%3A%3ACNAME%29-instance-method" class="signature"><strong>#cname_resources</strong>(domain : String) : Array(Resource::CNAME)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#loc_resources%28domain%3AString%29%3AArray%28Resource%3A%3ALOC%29-instance-method" class="signature"><strong>#loc_resources</strong>(domain : String) : Array(Resource::LOC)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mx_resources%28domain%3AString%29%3AArray%28Resource%3A%3AMX%29-instance-method" class="signature"><strong>#mx_resources</strong>(domain : String) : Array(Resource::MX)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ns_resources%28domain%3AString%29%3AArray%28Resource%3A%3ANS%29-instance-method" class="signature"><strong>#ns_resources</strong>(domain : String) : Array(Resource::NS)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ptr_resources%28domain%3AString%29%3AArray%28Resource%3A%3APTR%29-instance-method" class="signature"><strong>#ptr_resources</strong>(domain : String) : Array(Resource::PTR)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#resources%28domain%3AString%2Ctype%3AResource%3A%3AType%29%3AResources-instance-method" class="signature"><strong>#resources</strong>(domain : String, type : Resource::Type) : Resources</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#soa_resources%28domain%3AString%29%3AArray%28Resource%3A%3ASOA%29-instance-method" class="signature"><strong>#soa_resources</strong>(domain : String) : Array(Resource::SOA)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#srv_resources%28domain%3AString%29%3AArray%28Resource%3A%3ASRV%29-instance-method" class="signature"><strong>#srv_resources</strong>(domain : String) : Array(Resource::SRV)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#txt_resources%28domain%3AString%29%3AArray%28Resource%3A%3ATXT%29-instance-method" class="signature"><strong>#txt_resources</strong>(domain : String) : Array(Resource::TXT)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(server:String=Resolv.default_dns_resolver,read_timeout:Time::Span|Nil=nil,retry:Int32|Nil=nil,requester:Requester=Requester::UDP,udp_size:Int32=UDP_SIZE)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(server : String = <span class="t">Resolv</span>.default_dns_resolver, read_timeout : Time::Span | Nil = <span class="n">nil</span>, retry : Int32 | Nil = <span class="n">nil</span>, requester : <a href="../Resolv/DNS/Requester.html">Requester</a> = <span class="t">Requester</span><span class="t">::</span><span class="t">UDP</span>, udp_size : Int32 = <span class="t">UDP_SIZE</span>)
+
+        <a class="method-permalink" href="#new%28server%3AString%3DResolv.default_dns_resolver%2Cread_timeout%3ATime%3A%3ASpan%7CNil%3Dnil%2Cretry%3AInt32%7CNil%3Dnil%2Crequester%3ARequester%3DRequester%3A%3AUDP%2Cudp_size%3AInt32%3DUDP_SIZE%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L232" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="a_resources(domain:String):Array(Resource::A)-instance-method">
+      <div class="signature">
+        
+        def <strong>a_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/A.html">Resource::A</a>)
+
+        <a class="method-permalink" href="#a_resources%28domain%3AString%29%3AArray%28Resource%3A%3AA%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="aaaa_resources(domain:String):Array(Resource::AAAA)-instance-method">
+      <div class="signature">
+        
+        def <strong>aaaa_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/AAAA.html">Resource::AAAA</a>)
+
+        <a class="method-permalink" href="#aaaa_resources%28domain%3AString%29%3AArray%28Resource%3A%3AAAAA%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="caa_resources(domain:String):Array(Resource::CAA)-instance-method">
+      <div class="signature">
+        
+        def <strong>caa_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/CAA.html">Resource::CAA</a>)
+
+        <a class="method-permalink" href="#caa_resources%28domain%3AString%29%3AArray%28Resource%3A%3ACAA%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cname_resources(domain:String):Array(Resource::CNAME)-instance-method">
+      <div class="signature">
+        
+        def <strong>cname_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/CNAME.html">Resource::CNAME</a>)
+
+        <a class="method-permalink" href="#cname_resources%28domain%3AString%29%3AArray%28Resource%3A%3ACNAME%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="loc_resources(domain:String):Array(Resource::LOC)-instance-method">
+      <div class="signature">
+        
+        def <strong>loc_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/LOC.html">Resource::LOC</a>)
+
+        <a class="method-permalink" href="#loc_resources%28domain%3AString%29%3AArray%28Resource%3A%3ALOC%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mx_resources(domain:String):Array(Resource::MX)-instance-method">
+      <div class="signature">
+        
+        def <strong>mx_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/MX.html">Resource::MX</a>)
+
+        <a class="method-permalink" href="#mx_resources%28domain%3AString%29%3AArray%28Resource%3A%3AMX%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ns_resources(domain:String):Array(Resource::NS)-instance-method">
+      <div class="signature">
+        
+        def <strong>ns_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/NS.html">Resource::NS</a>)
+
+        <a class="method-permalink" href="#ns_resources%28domain%3AString%29%3AArray%28Resource%3A%3ANS%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ptr_resources(domain:String):Array(Resource::PTR)-instance-method">
+      <div class="signature">
+        
+        def <strong>ptr_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/PTR.html">Resource::PTR</a>)
+
+        <a class="method-permalink" href="#ptr_resources%28domain%3AString%29%3AArray%28Resource%3A%3APTR%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="resources(domain:String,type:Resource::Type):Resources-instance-method">
+      <div class="signature">
+        
+        def <strong>resources</strong>(domain : String, type : <a href="../Resolv/DNS/Resource/Type.html">Resource::Type</a>) : <a href="../Resolv/DNS/Resources.html">Resources</a>
+
+        <a class="method-permalink" href="#resources%28domain%3AString%2Ctype%3AResource%3A%3AType%29%3AResources-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L249" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="soa_resources(domain:String):Array(Resource::SOA)-instance-method">
+      <div class="signature">
+        
+        def <strong>soa_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/SOA.html">Resource::SOA</a>)
+
+        <a class="method-permalink" href="#soa_resources%28domain%3AString%29%3AArray%28Resource%3A%3ASOA%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="srv_resources(domain:String):Array(Resource::SRV)-instance-method">
+      <div class="signature">
+        
+        def <strong>srv_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/SRV.html">Resource::SRV</a>)
+
+        <a class="method-permalink" href="#srv_resources%28domain%3AString%29%3AArray%28Resource%3A%3ASRV%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="txt_resources(domain:String):Array(Resource::TXT)-instance-method">
+      <div class="signature">
+        
+        def <strong>txt_resources</strong>(domain : String) : Array(<a href="../Resolv/DNS/Resource/TXT.html">Resource::TXT</a>)
+
+        <a class="method-permalink" href="#txt_resources%28domain%3AString%29%3AArray%28Resource%3A%3ATXT%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mamantoha/resolv-crystal/blob/8fa3d3e705d6e706ad034108aad3d062c21e7be9/src/resolv.cr#L241" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+</div>
+
+</body>
+</html>
