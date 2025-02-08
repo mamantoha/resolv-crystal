@@ -55,7 +55,8 @@ module Resolv
                       Array(Resource::TXT) |
                       Array(Resource::AAAA) |
                       Array(Resource::SRV) |
-                      Array(Resource::CAA)
+                      Array(Resource::CAA) |
+                      Array(Resource::LOC)
 
     # DNS RCODEs
     #
@@ -102,6 +103,7 @@ module Resolv
         AAAA  =  28 # IPv6 host address
         SRV   =  33 # service location
         CAA   = 257 # certification authority authorization
+        LOC   =  29 # Location record
       end
 
       class SOA < Resource
@@ -202,6 +204,25 @@ module Resolv
         )
         end
       end
+
+      class LOC < Resource
+        getter latitude : Float64
+        getter longitude : Float64
+        getter altitude : Float64
+        getter size : Float64
+        getter horizontal_precision : Float64
+        getter vertical_precision : Float64
+
+        def initialize(
+          @latitude : Float64,
+          @longitude : Float64,
+          @altitude : Float64,
+          @size : Float64,
+          @horizontal_precision : Float64,
+          @vertical_precision : Float64,
+        )
+        end
+      end
     end
 
     def initialize(
@@ -255,6 +276,8 @@ module Resolv
         extract_srv_records(response)
       in .caa?
         extract_caa_records(response)
+      in .loc?
+        extract_loc_records(response)
       end
     end
 
@@ -564,6 +587,72 @@ module Resolv
 
         Resource::CAA.new(flags, tag, value)
       end
+    end
+
+    private def extract_loc_records(response : Bytes) : Array(Resource::LOC)
+      offsets = extract_record_offsets(response, :loc)
+
+      offsets.map do |offset|
+        version = response[offset]
+        raise Error.new("Unsupported LOC record version") unless version == 0
+
+        size = decode_loc_size(response[offset + 1])
+        horizontal_precision = decode_loc_size(response[offset + 2])
+        vertical_precision = decode_loc_size(response[offset + 3])
+
+        latitude = decode_loc_coordinate(response[offset + 4, 4], true)
+        longitude = decode_loc_coordinate(response[offset + 8, 4], false)
+        altitude = ((response[offset + 12].to_u32 << 24) |
+                    (response[offset + 13].to_u32 << 16) |
+                    (response[offset + 14].to_u32 << 8) |
+                    response[offset + 15].to_u32) / 100.0 - 100_000.0
+
+        Resource::LOC.new(
+          latitude,
+          longitude,
+          altitude,
+          size,
+          horizontal_precision,
+          vertical_precision
+        )
+      end
+    end
+
+    private def decode_loc_size(value : UInt8) : Float64
+      p! base = (value >> 4) & 0x0F
+      p! exponent = value & 0x0F
+
+      # return 0.1 if base == 0 # Default to 0.1m if base is zero
+
+      p! base.to_f
+      base.to_f * (10 ** exponent)
+    end
+
+    private def decode_loc_coordinate(bytes : Bytes, is_latitude : Bool) : Float64
+      # Convert from big-endian UInt32 to integer
+      raw_value = (bytes[0].to_u32 << 24) | (bytes[1].to_u32 << 16) | (bytes[2].to_u32 << 8) | bytes[3].to_u32
+
+      # Shift from unsigned to signed domain using Int64 to prevent overflow
+      # Int32::MAX # => 2147483647
+      adjusted_value = raw_value.to_i64 - 2_147_483_648_i64
+
+      # hemisphere =
+      #   if is_latitude
+      #     adjusted_value < 0 ? "S" : "N"
+      #   else
+      #     adjusted_value < 0 ? "W" : "E"
+      #   end
+
+      # Convert to degrees, minutes, and seconds
+      degrees = (adjusted_value.abs / 3_600_000).to_i
+      minutes = ((adjusted_value.abs % 3_600_000) / 60_000).to_i
+      seconds = ((adjusted_value.abs % 60_000) / 1000.0).to_f
+
+      # Convert to decimal degrees
+      decimal_degrees = degrees.to_f + (minutes.to_f / 60.0) + (seconds / 3600.0)
+
+      # Apply sign correction for North/South or East/West
+      adjusted_value < 0 ? -decimal_degrees : decimal_degrees
     end
   end
 end
