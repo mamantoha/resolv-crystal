@@ -5,4 +5,4 @@ dns = Resolv::DNS.new
 # latitude 49°33′11.71″ North, longitude 25°35′49.74″ East
 loc_records = dns.resources("shards.info", Resolv::DNS::Resource::Type::LOC)
 
-p! loc_records
+puts loc_records
