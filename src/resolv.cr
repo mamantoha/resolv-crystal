@@ -619,13 +619,14 @@ module Resolv
     end
 
     private def decode_loc_size(value : UInt8) : Float64
-      p! base = (value >> 4) & 0x0F
-      p! exponent = value & 0x0F
+      base = (value >> 4).to_f
+      exponent = (value & 0x0F).to_f
 
-      # return 0.1 if base == 0 # Default to 0.1m if base is zero
+      # RFC 1876: If base is 0, it should be treated as 1
+      base = 1.0 if base == 0.0
 
-      p! base.to_f
-      base.to_f * (10 ** exponent)
+      # Convert from centimeters to meters
+      base * (10.0 ** exponent) / 100.0
     end
 
     private def decode_loc_coordinate(bytes : Bytes, is_latitude : Bool) : Float64
