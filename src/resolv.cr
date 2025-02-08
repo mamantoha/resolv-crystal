@@ -106,6 +106,8 @@ module Resolv
         LOC   =  29 # Location record
       end
 
+      RECORD_TYPES = ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv", "caa", "loc"]
+
       class SOA < Resource
         getter mname, rname, serial, refresh, retry, expire, minimum
 
@@ -236,7 +238,7 @@ module Resolv
     )
     end
 
-    {% for type in ["a", "ns", "cname", "soa", "ptr", "mx", "txt", "aaaa", "srv", "caa", "loc"] %}
+    {% for type in Resource::RECORD_TYPES %}
       def {{type.id}}_resources(domain : String) : Array(Resource::{{type.id.upcase}})
         resources(domain, :{{type.id}}).as(Array(Resource::{{type.id.upcase}}))
       rescue ex
