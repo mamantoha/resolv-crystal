@@ -75,7 +75,6 @@ module Resolv
       NotZone   = 10
       DSOTYPENI = 11
       BADVERS   = 16
-      BADSIG    = 16
       BADKEY    = 17
       BADTIME   = 18
       BADMODE   = 19
@@ -231,16 +230,16 @@ module Resolv
 
     def initialize(
       @server : String = Resolv.default_dns_resolver,
-      @read_timeout : Time::Span | Nil = nil,
-      @retry : Int32 | Nil = nil,
+      @read_timeout : Time::Span? = nil,
+      @retry : Int32? = nil,
       @requester : Requester = Requester::UDP,
       @udp_size : Int32 = UDP_SIZE,
     )
     end
 
     {% for type in Resource::RECORD_TYPES %}
-      def {{type.id}}_resources(domain : String) : Array(Resource::{{type.id.upcase}})
-        resources(domain, :{{type.id}}).as(Array(Resource::{{type.id.upcase}}))
+      def {{ type.id }}_resources(domain : String) : Array(Resource::{{ type.id.upcase }})
+        resources(domain, :{{ type.id }}).as(Array(Resource::{{ type.id.upcase }}))
       rescue ex
         raise Resolv::Error.new("Unknown error: `#{ex.message}`")
       end
