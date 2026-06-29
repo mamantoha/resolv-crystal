@@ -359,21 +359,23 @@ module Resolv
       dns_query = build_dns_query(domain: domain, type: type)
 
       socket = TCPSocket.new
-      socket.connect(server, PORT)
+      begin
+        socket.connect(server, PORT)
 
-      # Send the length-prefixed DNS query
-      length_prefix = Bytes[dns_query.size.to_u16 >> 8, dns_query.size.to_u16 & 0xFF]
-      socket.write(length_prefix + dns_query)
+        # Send the length-prefixed DNS query
+        length_prefix = Bytes[dns_query.size.to_u16 >> 8, dns_query.size.to_u16 & 0xFF]
+        socket.write(length_prefix + dns_query)
 
-      # Read the length-prefixed DNS response
-      response_length_bytes = Bytes.new(2)
-      socket.read_fully(response_length_bytes)
-      response_length = (response_length_bytes[0] << 8) | response_length_bytes[1]
+        # Read the length-prefixed DNS response
+        response_length_bytes = Bytes.new(2)
+        socket.read_fully(response_length_bytes)
+        response_length = (response_length_bytes[0] << 8) | response_length_bytes[1]
 
-      response = Bytes.new(response_length)
-      socket.read_fully(response)
-
-      socket.close
+        response = Bytes.new(response_length)
+        socket.read_fully(response)
+      ensure
+        socket.close
+      end
 
       response
     end
@@ -390,22 +392,25 @@ module Resolv
 
       uri = URI.parse(@server)
       client = HTTP::Client.new(uri)
+      begin
+        headers = HTTP::Headers{
+          "Accept"         => "application/dns-message",
+          "Content-Type"   => "application/dns-message",
+          "Content-Length" => dns_query.size.to_s,
+        }
 
-      headers = HTTP::Headers{
-        "Accept"         => "application/dns-message",
-        "Content-Type"   => "application/dns-message",
-        "Content-Length" => dns_query.size.to_s,
-      }
+        request = HTTP::Request.new("POST", uri.request_target, headers)
+        request.headers = headers
+        request.body = IO::Memory.new(dns_query)
 
-      request = HTTP::Request.new("POST", uri.request_target, headers)
-      request.headers = headers
-      request.body = IO::Memory.new(dns_query)
+        response = client.exec(request)
 
-      response = client.exec(request)
+        raise Error.new("DNS query failed with HTTP status #{response.status_code}") unless response.success?
 
-      raise Error.new("DNS query failed with HTTP status #{response.status_code}") unless response.success?
-
-      response.body.to_slice
+        response.body.to_slice
+      ensure
+        client.close
+      end
     end
 
     private def status(response : Bytes) : RCode
